@@ -30,6 +30,8 @@ dependencies {
 
 appengine {
   downloadSdk = true
+    //creates the httpp address to test locally
+    httpAddress = "0.0.0.0"
   appcfg {
     oauth2 = true
   }

@@ -1,6 +1,6 @@
 {
  "kind": "discovery#rpcDescription",
- "etag": "\"zRMgE0l9nVDW4S28VYYcYQF9UW4/U9eakZ9usAs5CyeKJWmUUBq3Eqw\"",
+ "etag": "\"zRMgE0l9nVDW4S28VYYcYQF9UW4/tQ5KUCv4MJFUF8NZcQQyF4J9M_s\"",
  "discoveryVersion": "v1",
  "id": "myApi:v1",
  "name": "myApi",
@@ -13,8 +13,8 @@
   "x32": "http://www.google.com/images/icons/product/search-32.gif"
  },
  "protocol": "rpc",
- "rootUrl": "https://myApplicationId.appspot.com/_ah/api/",
- "rpcUrl": "https://myApplicationId.appspot.com/_ah/api/rpc",
+ "rootUrl": "https://baseballsimandroid-144521.appspot.com/_ah/api/",
+ "rpcUrl": "https://baseballsimandroid-144521.appspot.com/_ah/api/rpc",
  "rpcPath": "/_ah/api/rpc",
  "parameters": {
   "alt": {

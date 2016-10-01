@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/BaseballSimAndroid.iml" filepath="$PROJECT_DIR$/BaseballSimAndroid.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/backend/backend.iml" filepath="$PROJECT_DIR$/backend/backend.iml" />
+      <module fileurl="file://$PROJECT_DIR$/heroku/heroku.iml" filepath="$PROJECT_DIR$/heroku/heroku.iml" />
     </modules>
   </component>
 </project>

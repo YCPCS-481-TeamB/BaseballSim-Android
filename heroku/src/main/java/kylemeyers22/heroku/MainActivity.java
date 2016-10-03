@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
     {
         //private final HttpClient Client = new DefaultHttpClient();
         private String Content;
-        private String error = null;
+        private String Error = null;
         private ProgressDialog Dialog = new ProgressDialog(MainActivity.this);
         String data = "";
         TextView uiUpdate = (TextView) findViewById(R.id.playerFirstName);
@@ -141,10 +141,9 @@ public class MainActivity extends AppCompatActivity {
             //close progress dialog
             Dialog.dismiss();
 
-            //if (Error != null) {
-                //uiUpdate.setText("Output : " + Error);
-           // } else
-            //{
+            if (Error != null) {
+                uiUpdate.setText("Output : " + Error);
+            } else {
                 uiUpdate.setText(Content);
 
                 //start parse response json
@@ -181,7 +180,7 @@ public class MainActivity extends AppCompatActivity {
                 {
                     e.printStackTrace();
                 }
-            //}
+            }
         }
     }
         //gets the backend from heroku

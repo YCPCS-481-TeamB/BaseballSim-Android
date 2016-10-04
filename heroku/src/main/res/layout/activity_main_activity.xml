@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,76 +7,66 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="horizontal"
     tools:context=".MainActivity">
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal">
-
-        <TextView
-            android:text="Click Button to show the Players from the backend"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/allPlayers"/>
-
-    </LinearLayout>
-
-    <LinearLayout
+    <!-- Top Label -->
+    <TextView
+        android:text="Click Button to show the Players from the backend"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal">
+        android:id="@+id/allPlayers"/>
 
-        <Button
-            android:id="@+id/getPlayerButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="Players!!!"/>
-    </LinearLayout>
-
-    <LinearLayout
+    <!-- Initiate Button -->
+    <Button
+        android:id="@+id/getPlayerButton"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-        <TextView
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:text="First Name"
-            android:gravity="left"
-            android:id="@+id/playerFirstNameLabel"/>
-        <TextView
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:text=""
-            android:gravity="left"
-            android:id="@+id/playerFirstName"/>
-    </LinearLayout>
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="Players!!!"
+        android:layout_below="@+id/allPlayers"/>
 
-    <LinearLayout
+    <!-- FirstName Label and Viewfield-->
+    <TextView
+        android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:text="First Name"
+        android:gravity="left"
+        android:id="@+id/playerFirstNameLabel"
+        android:layout_below="@+id/getPlayerButton"/>
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text=""
+        android:gravity="left"
+        android:id="@+id/playerFirstName"
+        android:layout_below="@+id/getPlayerButton"
+        android:layout_toEndOf="@+id/playerFirstNameLabel"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Last Name"
-            android:gravity="left"
-            android:id="@+id/playerLastNameLabel"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:gravity="left"
-            android:id="@+id/playerLastName"/>
-    </LinearLayout>
+    <!-- LastName Label and Viewfield-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Last Name"
+        android:gravity="left"
+        android:id="@+id/playerLastNameLabel"
+        android:layout_below="@+id/playerFirstName"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:gravity="left"
+        android:id="@+id/playerLastName"
+        android:layout_below="@+id/playerFirstName"
+        android:layout_toEndOf="@+id/playerLastNameLabel"/>
 
-    <EditText
+    <!-- Placeholder textview (?) -->
+    <TextView
         android:paddingTop="20px"
         android:id="@+id/serverText"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="" />
+        android:text=""
+        android:layout_alignParentBottom="true"/>
 
-</LinearLayout>
+</RelativeLayout>

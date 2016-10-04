@@ -14,6 +14,7 @@ import android.widget.TextView;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.JSONTokener;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -54,6 +55,8 @@ public class MainActivity extends AppCompatActivity {
 
                 //use AsyncTask execute method to prevent ANR problem
                 new LongOperation().execute(serverUrl);
+
+                playerFirstLabel.setText("Button pressed!");
             }
         });
     }
@@ -68,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
         TextView uiUpdate = (TextView) findViewById(R.id.playerFirstName);
         TextView jsonParsed = (TextView) findViewById(R.id.playerLastName);
         int sizeData = 0;
-        EditText serverText = (EditText) findViewById(R.id.serverText);
+        TextView serverText = (TextView) findViewById(R.id.serverText);
 
         protected void onPreExecute()
         {
@@ -96,27 +99,30 @@ public class MainActivity extends AppCompatActivity {
             try
             {
                 //defined url where to send data
-                URL url = new URL(urls[0]);
+                //URL url = new URL(urls[0]);
+                URL url = new URL("https://baseballsim.herokuapp.com/api" + "/users");
 
                 //send post data request
 
                 URLConnection conn = url.openConnection();
-                conn.setDoOutput(true);
-                OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
-                wr.write(data);
-                wr.flush();
-
-                //get the server response
-
+                System.out.println("---- IN MAINACTIVITY ----");
+                System.out.println("CONN OUTPUT: " + conn.getContent().toString());
+//                conn.setDoOutput(true);
+//                OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
+//                wr.write(data);
+//                wr.flush();
+//
+//                //get the server response
+//
                 reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
                 StringBuilder sb = new StringBuilder();
-                String line = null;
+                String line = "";
 
-                //read servedr response
+                //read server response
                 while((line=reader.readLine()) != null)
                 {
                     //append server response n string
-                    sb.append(line + "");
+                    sb.append(line);
                 }
 
                 //append server response to content string
@@ -135,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
                 catch (Exception ex){}
             }
             return null;
-    }
+        }
 
         protected void onPostExecute(Void unused) {
             //close progress dialog
@@ -151,32 +157,39 @@ public class MainActivity extends AppCompatActivity {
                 String OutputData = "";
                 JSONObject jsonResponse;
 
+                System.out.println("#---- IN onPostExecute ----#");
+                System.out.println(Content);
                 try
                 {
-                    jsonResponse = new JSONObject(Content);
+//                    jsonResponse = new JSONObject(Content);
+//
+//                    JSONArray jsonMainNode = jsonResponse.optJSONArray("Android");
+//
+//                    int lengthJsonArr = jsonMainNode.length();
+//                    for(int i=0; i<lengthJsonArr; i++)
+//                    {
+//                        JSONObject jsonChildNode = jsonMainNode.getJSONObject(i);
+//
+//                        //fetch node values
+//                        String firstname = jsonChildNode.optString("firstname").toString();
+//                        String number = jsonChildNode.optString("lastname").toString();
+//                        String date_added = jsonChildNode.optString("date_created").toString();
+//
+//                        OutputData +=" Name         : " +firstname+"" +
+//                                "Number         :" +number+""
+//                                + "Time                     : "+date_added+""
+//                                +"========================================";
+//                    }
+                    JSONObject jObj = new JSONObject(Content);
+                    System.out.println("##########");
+                    System.out.println(jObj.getJSONArray("users").getJSONObject(0).getString("firstname"));
 
-                    JSONArray jsonMainNode = jsonResponse.optJSONArray("Android");
-
-                    int lengthJsonArr = jsonMainNode.length();
-                    for(int i=0; i<lengthJsonArr; i++)
-                    {
-                        JSONObject jsonChildNode = jsonMainNode.getJSONObject(i);
-
-                        //fetch node values
-                        String firstname = jsonChildNode.optString("firstname").toString();
-                        String number = jsonChildNode.optString("lastname").toString();
-                        String date_added = jsonChildNode.optString("date_created").toString();
-
-                        OutputData +=" Name         : " +firstname+"" +
-                                "Number         :" +number+""
-                                + "Time                     : "+date_added+""
-                                +"========================================";
-                    }
+                    OutputData = "Output captured: " + jObj.getJSONArray("users").getJSONObject(0).getString("firstname");
 
                     //show output on screen
                     jsonParsed.setText(OutputData);
                 }
-                catch(JSONException e)
+                catch(Exception e)
                 {
                     e.printStackTrace();
                 }

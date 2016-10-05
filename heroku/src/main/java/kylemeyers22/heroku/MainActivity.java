@@ -51,12 +51,10 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 //webserver request url
-                String serverUrl = "http://baseballsim.herokuapp.com/api/players";
+                String serverUrl = "https://baseballsim.herokuapp.com/api/players";
 
                 //use AsyncTask execute method to prevent ANR problem
                 new LongOperation().execute(serverUrl);
-
-                playerFirstLabel.setText("Button pressed!");
             }
         });
     }

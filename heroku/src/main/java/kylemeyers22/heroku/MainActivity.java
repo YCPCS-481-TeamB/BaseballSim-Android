@@ -1,35 +1,19 @@
 package kylemeyers22.heroku;
 
 import android.app.ProgressDialog;
-import android.icu.text.IDNA;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
-
-
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
-import org.json.JSONTokener;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -60,19 +44,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private class LongOperation extends AsyncTask<String, Void, Void> {
-        //private final HttpClient Client = new DefaultHttpClient();
+
         private String Content;
         private String Error = null;
         private ProgressDialog Dialog = new ProgressDialog(MainActivity.this);
+
         String data = "";
         TextView uiUpdate = (TextView) findViewById(R.id.playerFirstName);
         TextView jsonParsed = (TextView) findViewById(R.id.playerLastName);
-        int sizeData = 0;
         TextView serverText = (TextView) findViewById(R.id.serverText);
 
         protected void onPreExecute() {
             //start progress dialog message
-            Dialog.setMessage("Please Wait....");
+            Dialog.setMessage("Please Wait...");
             Dialog.show();
 
             try {
@@ -94,35 +78,27 @@ public class MainActivity extends AppCompatActivity {
                 URL url = new URL("https://baseballsim.herokuapp.com/api" + "/users");
 
                 //send post data request
-
                 URLConnection conn = url.openConnection();
                 System.out.println("---- IN MAINACTIVITY ----");
                 System.out.println("CONN OUTPUT: " + conn.getContent().toString());
-//                conn.setDoOutput(true);
-//                OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
-//                wr.write(data);
-//                wr.flush();
-//
-//                //get the server response
-//
-                reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-                StringBuilder sb = new StringBuilder();
-                String line = "";
 
                 //read server response
+                reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                StringBuilder sb = new StringBuilder();
+                String line;
+
                 while ((line = reader.readLine()) != null) {
-                    //append server response n string
                     sb.append(line);
                 }
-
-                //append server response to content string
                 Content = sb.toString();
+
             } catch (Exception ex) {
                 // Error = ex.getMessage();
             } finally {
                 try {
                     reader.close();
                 } catch (Exception ex) {
+                    System.out.println("Could not close reader!");
                 }
             }
             return null;
@@ -137,10 +113,8 @@ public class MainActivity extends AppCompatActivity {
             } else {
                 uiUpdate.setText(Content);
 
-                //start parse response json
-
-                String OutputData = "";
-                JSONObject jsonResponse;
+                //Receive JSON response
+                String OutputData;
 
                 System.out.println("#---- IN onPostExecute ----#");
                 System.out.println(Content);

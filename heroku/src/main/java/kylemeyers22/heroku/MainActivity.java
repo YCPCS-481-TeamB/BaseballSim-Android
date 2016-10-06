@@ -59,8 +59,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private class LongOperation extends AsyncTask<String, Void, Void>
-    {
+    private class LongOperation extends AsyncTask<String, Void, Void> {
         //private final HttpClient Client = new DefaultHttpClient();
         private String Content;
         private String Error = null;
@@ -71,31 +70,25 @@ public class MainActivity extends AppCompatActivity {
         int sizeData = 0;
         TextView serverText = (TextView) findViewById(R.id.serverText);
 
-        protected void onPreExecute()
-        {
+        protected void onPreExecute() {
             //start progress dialog message
             Dialog.setMessage("Please Wait....");
             Dialog.show();
 
-            try
-            {
+            try {
                 //set request parameter
-                data +="&" + URLEncoder.encode("data", "UTF-8")+ "="+serverText.getText();
-            }
-            catch (UnsupportedEncodingException e)
-            {
+                data += "&" + URLEncoder.encode("data", "UTF-8") + "=" + serverText.getText();
+            } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
         }
 
-        protected Void doInBackground(String... urls)
-        {
+        protected Void doInBackground(String... urls) {
             //make post call to server
             BufferedReader reader = null;
 
             //send data
-            try
-            {
+            try {
                 //defined url where to send data
                 //URL url = new URL(urls[0]);
                 URL url = new URL("https://baseballsim.herokuapp.com/api" + "/users");
@@ -117,26 +110,20 @@ public class MainActivity extends AppCompatActivity {
                 String line = "";
 
                 //read server response
-                while((line=reader.readLine()) != null)
-                {
+                while ((line = reader.readLine()) != null) {
                     //append server response n string
                     sb.append(line);
                 }
 
                 //append server response to content string
                 Content = sb.toString();
-            }
-            catch(Exception ex)
-            {
-               // Error = ex.getMessage();
-            }
-            finally
-            {
-                try
-                {
+            } catch (Exception ex) {
+                // Error = ex.getMessage();
+            } finally {
+                try {
                     reader.close();
+                } catch (Exception ex) {
                 }
-                catch (Exception ex){}
             }
             return null;
         }
@@ -157,27 +144,7 @@ public class MainActivity extends AppCompatActivity {
 
                 System.out.println("#---- IN onPostExecute ----#");
                 System.out.println(Content);
-                try
-                {
-//                    jsonResponse = new JSONObject(Content);
-//
-//                    JSONArray jsonMainNode = jsonResponse.optJSONArray("Android");
-//
-//                    int lengthJsonArr = jsonMainNode.length();
-//                    for(int i=0; i<lengthJsonArr; i++)
-//                    {
-//                        JSONObject jsonChildNode = jsonMainNode.getJSONObject(i);
-//
-//                        //fetch node values
-//                        String firstname = jsonChildNode.optString("firstname").toString();
-//                        String number = jsonChildNode.optString("lastname").toString();
-//                        String date_added = jsonChildNode.optString("date_created").toString();
-//
-//                        OutputData +=" Name         : " +firstname+"" +
-//                                "Number         :" +number+""
-//                                + "Time                     : "+date_added+""
-//                                +"========================================";
-//                    }
+                try {
                     JSONObject jObj = new JSONObject(Content);
                     System.out.println("##########");
                     System.out.println(jObj.getJSONArray("users").getJSONObject(0).getString("firstname"));
@@ -186,45 +153,10 @@ public class MainActivity extends AppCompatActivity {
 
                     //show output on screen
                     jsonParsed.setText(OutputData);
-                }
-                catch(Exception e)
-                {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         }
     }
-        //gets the backend from heroku
-        //use herokutestandroid for the url to test backend initially
-        //use postgresexample for an example of postgres
-        //use baseballsim for our baseball sim project
-       /* Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://baseballsim.herokuapp.com/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();*/
-
-
-    //createse click listener for the button
-       /* button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Book book = new Book(isbnInput.getText().toString());
-                Call<Book> createCall = service.create(book);
-                createCall.enqueue(new Callback<Book>() {
-                    @Override
-                    public void onResponse(Call<Book> _, Response<Book> resp) {
-                        Book newBook = resp.body();
-                        textView.setText("Created Book with ISBN: " + newBook.isbn);
-                    }
-
-                    @Override
-                    public void onFailure(Call<Book> _, Throwable t) {
-                        t.printStackTrace();
-                        textView.setText(t.getMessage());
-                    }
-                });
-            }
-        });*/
-
-
 }

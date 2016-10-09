@@ -78,7 +78,7 @@ public class LoginActivity extends AppCompatActivity {
                 System.out.println("---- PARAMS ARE: " + authParams);
                 conn.setDoOutput(true);
                 conn.setRequestMethod("POST");
-                conn.setRequestProperty("Content-type", "x-www-form-urlencoded");
+                conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
                 conn.setFixedLengthStreamingMode(authData.length);
 
                 OutputStream postData = conn.getOutputStream();

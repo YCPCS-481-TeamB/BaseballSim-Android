@@ -104,9 +104,9 @@ public class LoginActivity extends AppCompatActivity {
 
         protected void onPostExecute(Void unused) {
             Dialog.dismiss();
-//            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-//            startActivity(intent);
-//            finish();
+            Intent intent = new Intent(LoginActivity.this, LeagueActivity.class);
+            startActivity(intent);
+            finish();
 
             System.out.println("---- CHECKING TOKEN");
             System.out.println(authToken);

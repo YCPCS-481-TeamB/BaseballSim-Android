@@ -40,8 +40,8 @@
         android:text=""
         android:gravity="left"
         android:id="@+id/playerFirstName"
-        android:layout_below="@+id/getPlayerButton"
-        android:layout_toEndOf="@+id/playerFirstNameLabel"/>
+        android:layout_below="@id/getPlayerButton"
+        android:layout_toEndOf="@id/playerFirstNameLabel"/>
 
     <!-- LastName Label and Viewfield-->
     <TextView
@@ -50,15 +50,15 @@
         android:text="Last Name"
         android:gravity="left"
         android:id="@+id/playerLastNameLabel"
-        android:layout_below="@+id/playerFirstName"/>
+        android:layout_below="@id/playerFirstName"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=""
         android:gravity="left"
         android:id="@+id/playerLastName"
-        android:layout_below="@+id/playerFirstName"
-        android:layout_toEndOf="@+id/playerLastNameLabel"/>
+        android:layout_below="@id/playerFirstName"
+        android:layout_toEndOf="@id/playerLastNameLabel"/>
 
     <!-- Placeholder textview (?) -->
     <TextView

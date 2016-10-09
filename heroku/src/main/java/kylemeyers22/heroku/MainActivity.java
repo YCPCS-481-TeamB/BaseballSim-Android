@@ -1,6 +1,7 @@
 package kylemeyers22.heroku;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,10 +22,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_activity);
-
-        /*used for herokutestandroid
-        final Button button = (Button) findViewById(R.id.button);
-        final TextView textView = (TextView) findViewById(R.id.textView);*/
 
         //used with postgresexample
         final TextView playerFirstLabel = (TextView) findViewById(R.id.playerFirstNameLabel);
@@ -75,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
             try {
                 //defined url where to send data
                 //URL url = new URL(urls[0]);
-                URL url = new URL("https://baseballsim.herokuapp.com/api" + "/users");
+                URL url = new URL("https://baseballsim.herokuapp.com/api" + "/players");
 
                 //send post data request
                 URLConnection conn = url.openConnection();
@@ -93,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
                 Content = sb.toString();
 
             } catch (Exception ex) {
-                // Error = ex.getMessage();
+                Error = ex.getMessage();
             } finally {
                 try {
                     reader.close();
@@ -107,6 +104,9 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(Void unused) {
             //close progress dialog
             Dialog.dismiss();
+            //Intent intent = new Intent(MainActivity.this, FieldActivity.class);
+           // startActivity(intent);
+            //finish();
 
             if (Error != null) {
                 uiUpdate.setText("Output : " + Error);

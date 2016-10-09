@@ -21,6 +21,31 @@
             </intent-filter>
         </activity>
 
+        <!-- BaseballSim Field -->
+        <activity android:name=".FieldActivity"
+            android:label="Fields of Baseballsim">
+        </activity>
+
+        <!-- BaseballSim League -->
+        <activity android:name=".LeagueActivity"
+            android:label="Leagues of Baseballsim">
+        </activity>
+
+        <!-- BaseballSim Teams -->
+        <activity android:name=".TeamActivity"
+            android:label="Teams of Baseballsim">
+        </activity>
+
+        <!-- BaseballSim Schedule -->
+        <activity android:name=".ScheduleActivity"
+            android:label="Schedules of Baseballsim">
+        </activity>
+
+        <!-- BaseballSim Game -->
+        <activity android:name=".GameActivity"
+            android:label="Games of Baseballsim">
+        </activity>
+
         <activity android:name=".MainActivity"
                   android:label="Main Baseballsim Display"/>
     </application>

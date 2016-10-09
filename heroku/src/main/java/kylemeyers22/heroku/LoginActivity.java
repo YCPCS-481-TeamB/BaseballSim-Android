@@ -11,7 +11,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.io.BufferedOutputStream;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -35,6 +37,7 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Direct LongOperation to API token endpoint
                 String authUrl = "https://baseballsim.herokuapp.com/api/users/token";
                 new LongOperation().execute(authUrl);
             }
@@ -49,15 +52,14 @@ public class LoginActivity extends AppCompatActivity {
         private String uname, pword, authToken;
 
         SharedPreferences sharedPref = LoginActivity.this.getPreferences(Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPref.edit();
 
         protected void onPreExecute() {
-//            uname = usernameInput.getText().toString();
-//            pword = passwordInput.getText().toString();
+            uname = usernameInput.getText().toString();
+            pword = passwordInput.getText().toString();
 
             // FOR DEBUGGING
-            uname = "bcoover";
-            pword = "devpass";
+//            uname = "bcoover";
+//            pword = "devpass";
 
             Dialog.setMessage("Logging in...");
             Dialog.show();
@@ -72,21 +74,21 @@ public class LoginActivity extends AppCompatActivity {
                 getToken = new URL(urls[0]);
                 String authParams = "username=" + uname + "&password=" + pword;
                 byte[] authData = authParams.getBytes("UTF-8");
-                conn = (HttpURLConnection) getToken.openConnection();
 
-                System.out.println("---- ATTEMPTING POST");
-                System.out.println("---- PARAMS ARE: " + authParams);
+                // Setup POST configuration
+                conn = (HttpURLConnection) getToken.openConnection();
                 conn.setDoOutput(true);
                 conn.setRequestMethod("POST");
                 conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+
+                // Submit auth params
                 conn.setFixedLengthStreamingMode(authData.length);
-
                 OutputStream postData = conn.getOutputStream();
-
                 postData.write(authData);
                 postData.flush();
                 postData.close();
 
+                // Read server response
                 BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
                 StringBuilder sBuilder = new StringBuilder();
                 String line;
@@ -104,12 +106,21 @@ public class LoginActivity extends AppCompatActivity {
 
         protected void onPostExecute(Void unused) {
             Dialog.dismiss();
+
+            SharedPreferences.Editor editor = sharedPref.edit();
+
+            // Parse JSON for API Token and save to Shared Preferences for access elsewhere
+            try {
+                JSONObject loginJson = new JSONObject(authToken);
+                editor.putString("apiToken", loginJson.getString("token"));
+                editor.apply();
+            } catch (JSONException jexc) {
+                jexc.printStackTrace();
+            }
+            // Swap activities to MainActivity
             Intent intent = new Intent(LoginActivity.this, LeagueActivity.class);
             startActivity(intent);
             finish();
-
-            System.out.println("---- CHECKING TOKEN");
-            System.out.println(authToken);
         }
     }
 }

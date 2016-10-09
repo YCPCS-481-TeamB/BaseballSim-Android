@@ -1,6 +1,7 @@
 package kylemeyers22.heroku;
 
 import android.app.ProgressDialog;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,8 +12,8 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLConnection;
 import java.net.URLEncoder;
 
 public class MainActivity extends AppCompatActivity {
@@ -54,6 +55,10 @@ public class MainActivity extends AppCompatActivity {
         TextView jsonParsed = (TextView) findViewById(R.id.playerLastName);
         TextView serverText = (TextView) findViewById(R.id.serverText);
 
+        // Obtain API Authentication Token from LoginActivity's shared preferences
+        SharedPreferences sPref = getSharedPreferences("LoginActivity", MODE_PRIVATE);
+        final String apiToken = sPref.getString("apiToken", null);
+
         protected void onPreExecute() {
             //start progress dialog message
             Dialog.setMessage("Please Wait...");
@@ -74,13 +79,14 @@ public class MainActivity extends AppCompatActivity {
             //send data
             try {
                 //defined url where to send data
-                //URL url = new URL(urls[0]);
-                URL url = new URL("https://baseballsim.herokuapp.com/api" + "/users");
+                URL url = new URL(urls[0]);
+//                URL url = new URL("https://baseballsim.herokuapp.com/api" + "/users");
 
-                //send post data request
-                URLConnection conn = url.openConnection();
-                System.out.println("---- IN MAINACTIVITY ----");
-                System.out.println("CONN OUTPUT: " + conn.getContent().toString());
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("GET");
+                conn.setRequestProperty("x-access-token", apiToken);
+//                System.out.println("---- IN MAINACTIVITY ----");
+//                System.out.println("CONN OUTPUT: " + conn.getContent().toString());
 
                 //read server response
                 reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
@@ -121,10 +127,11 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     JSONObject jObj = new JSONObject(Content);
                     System.out.println("##########");
-                    System.out.println(jObj.getJSONArray("users").getJSONObject(0).getString("firstname"));
+//                    System.out.println(jObj.getJSONArray("users").getJSONObject(0).getString("firstname"));
 
-                    OutputData = "Output captured: " + jObj.getJSONArray("users").getJSONObject(0).getString("firstname");
+//                    OutputData = "Output captured: " + jObj.getJSONArray("users").getJSONObject(0).getString("firstname");
 
+                    OutputData = jObj.toString();
                     //show output on screen
                     jsonParsed.setText(OutputData);
                 } catch (Exception e) {

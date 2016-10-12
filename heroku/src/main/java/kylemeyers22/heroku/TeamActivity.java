@@ -19,7 +19,7 @@ public class TeamActivity extends AppCompatActivity {
         setContentView(R.layout.team);
 
         //used with postgresexample
-        final TextView teamLabel = (TextView) findViewById(R.id.teamName);
+        //final TextView teamLabel = (TextView) findViewById(R.id.teamName);
         final Button getScheduleButton = (Button) findViewById(R.id.ScheduleButton);
 
         getScheduleButton.setOnClickListener(new View.OnClickListener() {

@@ -4,8 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-
-    <!--FieldName textView-->
+<!--
+    FieldName textView
     <TextView
         android:text="Field Name: "
         android:layout_width="wrap_content"
@@ -15,7 +15,7 @@
         android:id="@+id/fieldName"
         />
 
-    <!--Team ID of the field-->
+    Team ID of the field
     <TextView
         android:text="Team Name: "
         android:layout_width="wrap_content"
@@ -32,12 +32,37 @@
         android:layout_below="@id/fieldName"
         android:layout_toEndOf="@id/teamID"/>
 
-    <!-- button to change to players-->
+    button to change to players
     <Button
         android:text="Onward to Players"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:paddingTop="50dp"
         android:paddingBottom="50dp"
-        android:id="@+id/PlayersButton"/>
+        android:id="@+id/PlayersButton"/>-->
+
+    <!-- Players List -->
+    <ListView
+        android:id="@+id/fieldsList"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <!-- Initiate Button -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.10"
+        android:gravity="bottom"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/getFieldButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textAllCaps="false"
+            android:text="Get Fields"/>
+
+    </LinearLayout>
 </LinearLayout>

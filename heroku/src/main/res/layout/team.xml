@@ -7,16 +7,18 @@
     <TextView
         android:text="Team Name: "
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@id/teamID"/>
+        android:layout_height="wrap_content"/>
+        <!--android:id="@id/teamID"-->
+
 
     <TextView
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:text=""
-        android:gravity="left"
-        android:id="@id/teamName"
-        android:layout_toEndOf="@id/teamID"/>
+        android:gravity="left"/>
+       <!-- android:id="@id/teamName"
+        android:layout_toEndOf="@id/teamID"-->
+
 
     <!-- button to change to players-->
     <Button

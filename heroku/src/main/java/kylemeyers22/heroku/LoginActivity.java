@@ -123,7 +123,7 @@ public class LoginActivity extends AppCompatActivity {
             // Swap activities to MainActivity if authentication passed
             if (loginSuccess) {
 //                Intent intent = new Intent(LoginActivity.this, LeagueActivity.class);
-                Intent intent = new Intent(LoginActivity.this, FieldActivity.class);
+                Intent intent = new Intent(LoginActivity.this, GameActivity.class);
                 startActivity(intent);
                 finish();
             }

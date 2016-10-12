@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <!--GameName textView-->
+<!--
+    GameName textView
     <TextView
         android:text="Game: "
         android:layout_width="wrap_content"
@@ -20,7 +20,7 @@
         android:id="@+id/gameName"
         android:layout_toEndOf="@id/gameLabel"/>
 
-    <!-- button to change to players-->
+     button to change to players
     <Button
         android:text="Onward to Players"
         android:layout_width="fill_parent"
@@ -28,5 +28,31 @@
         android:paddingTop="50dp"
         android:paddingBottom="50dp"
         android:id="@+id/gameToPlayersButton"/>
+    -->
 
+
+    <!-- Games List -->
+    <ListView
+        android:id="@+id/gamesList"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <!-- Initiate Button -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.10"
+        android:gravity="bottom"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/getGameButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textAllCaps="false"
+            android:text="Get Games"/>
+
+    </LinearLayout>
 </LinearLayout>

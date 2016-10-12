@@ -41,7 +41,7 @@
         android:paddingBottom="50dp"
         android:id="@+id/PlayersButton"/>-->
 
-    <!-- Players List -->
+    <!-- Fields List -->
     <ListView
         android:id="@+id/fieldsList"
         android:layout_width="match_parent"

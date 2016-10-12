@@ -14,12 +14,11 @@ import android.widget.TextView;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
+
+import kylemeyers22.heroku.utils.HttpUtils;
 
 /**
  * Created by Ben Coover on 10/4/2016.
@@ -49,54 +48,31 @@ public class LoginActivity extends AppCompatActivity {
         private ProgressDialog Dialog = new ProgressDialog(LoginActivity.this);
         private TextView usernameInput = (TextView) findViewById(R.id.UsernameInput);
         private TextView passwordInput = (TextView) findViewById(R.id.PasswordInput);
-        private String uname, pword, authToken;
+        private String uname;
+        private String pword;
+        private String authToken;
 
         SharedPreferences sharedPref = LoginActivity.this.getPreferences(Context.MODE_PRIVATE);
 
         protected void onPreExecute() {
-            uname = usernameInput.getText().toString();
-            pword = passwordInput.getText().toString();
+//            uname = usernameInput.getText().toString();
+//            pword = passwordInput.getText().toString();
 
             // FOR DEBUGGING
-//            uname = "bcoover";
-//            pword = "devpass";
+            uname = "bcoover";
+            pword = "devpass";
 
             Dialog.setMessage("Logging in...");
             Dialog.show();
         }
 
         protected Void doInBackground(String... urls) {
-            URL getToken;
-            HttpURLConnection conn;
-
             try {
-                System.out.println("---- IN LoginActivity.doInBackground");
-                getToken = new URL(urls[0]);
                 String authParams = "username=" + uname + "&password=" + pword;
-                byte[] authData = authParams.getBytes("UTF-8");
+                Map<String, String> props = new HashMap<>();
+                props.put("Content-Type", "application/x-www-form-urlencoded");
 
-                // Setup POST configuration
-                conn = (HttpURLConnection) getToken.openConnection();
-                conn.setDoOutput(true);
-                conn.setRequestMethod("POST");
-                conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-
-                // Submit auth params
-                conn.setFixedLengthStreamingMode(authData.length);
-                OutputStream postData = conn.getOutputStream();
-                postData.write(authData);
-                postData.flush();
-                postData.close();
-
-                // Read server response
-                BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-                StringBuilder sBuilder = new StringBuilder();
-                String line;
-
-                while ((line = reader.readLine()) != null) {
-                    sBuilder.append(line);
-                }
-                authToken = sBuilder.toString();
+                authToken = HttpUtils.doPost(urls[0], props, authParams);
             } catch (IOException exc) {
                 exc.printStackTrace();
             }
@@ -117,8 +93,10 @@ public class LoginActivity extends AppCompatActivity {
             } catch (JSONException jexc) {
                 jexc.printStackTrace();
             }
+
             // Swap activities to MainActivity
-            Intent intent = new Intent(LoginActivity.this, LeagueActivity.class);
+//            Intent intent = new Intent(LoginActivity.this, LeagueActivity.class);
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent);
             finish();
         }

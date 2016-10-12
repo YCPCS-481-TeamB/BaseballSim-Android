@@ -1,18 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
+    tools:context=".LoginActivity">
 
     <!-- Username Input -->
     <TextView
-        android:text="Username"
+        android:text="@string/username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:id="@+id/UsernameLabel"/>
+        android:labelFor="@id/UsernameInput"/>
     <EditText
+        android:inputType="text"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:paddingTop="5dp"
@@ -21,10 +27,10 @@
 
     <!-- Password Input -->
     <TextView
-        android:text="Password"
+        android:text="@string/password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/PasswordLabel"/>
+        android:labelFor="@id/PasswordInput"/>
 
     <EditText
         android:inputType="textPassword"
@@ -36,10 +42,9 @@
 
     <!-- Auth Button -->
     <Button
-        android:text="Login"
-        android:layout_width="fill_parent"
+        android:text="@string/login"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="50dp"
-        android:paddingBottom="50dp"
+        android:layout_gravity="center"
         android:id="@+id/AuthButton"/>
 </LinearLayout>

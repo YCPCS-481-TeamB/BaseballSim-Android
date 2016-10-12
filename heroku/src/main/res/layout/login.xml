@@ -16,7 +16,7 @@
         android:text="@string/username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:labelFor="@id/UsernameInput"/>
+        android:labelFor="@+id/UsernameInput"/>
     <EditText
         android:inputType="text"
         android:layout_width="fill_parent"
@@ -30,7 +30,7 @@
         android:text="@string/password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:labelFor="@id/PasswordInput"/>
+        android:labelFor="@+id/PasswordInput"/>
 
     <EditText
         android:inputType="textPassword"

@@ -23,6 +23,7 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
+    testCompile 'org.json:json:20140107'
     compile 'com.android.support:appcompat-v7:24.2.1'
 
     //used for postgres and restful services
@@ -31,4 +32,5 @@ dependencies {
     compile 'org.apache.httpcomponents:httpclient:4.5'
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
+
 }

@@ -50,7 +50,7 @@ public class TeamActivity extends AppCompatActivity {
         });
     }
 
-    private class LongOperation extends AsyncTask<String, Void, Void> {
+    public class LongOperation extends AsyncTask<String, Void, Void> {
 
         private String Content;
         private String Error = null;

@@ -1,40 +1,35 @@
 package kylemeyers22.heroku;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpUriRequest;
-import org.apache.http.entity.ContentType;
-import org.apache.http.impl.client.HttpClientBuilder;
-import org.json.JSONException;
-import org.json.JSONObject;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.CoreMatchers.*;
+import static org.mockito.Mockito.*;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
-import java.io.IOException;
+import android.content.Context;
+import android.content.SharedPreferences;
 
-import static org.junit.Assert.assertEquals;
+@RunWith(MockitoJUnitRunner.class)
+public class LoginUnitTest {
 
-/**
- * Created by shdw2 on 10/23/2016.
- */
+    private static final String FAKE_STRING = "HELLO WORLD";
 
-public class LoginUnitTest extends LoginActivity{
+    @Mock
+    Context mMockContext;
+
     @Test
-    public void testTeamName()
-    {
-        try {
-            String jsonMimeType = "application/json";
-            HttpUriRequest request = new HttpGet("https://baseballsim.herokuapp.com/api/users");
+    public void readStringFromContext_LocalizedString() {
+        // Given a mocked Context injected into the object under test...
+       /* when(mMockContext.getString(R.string.hello_word))
+                .thenReturn(FAKE_STRING);
+        ClassUnderTest myObjectUnderTest = new ClassUnderTest(mMockContext);
 
-            // When
-            HttpResponse response = HttpClientBuilder.create().build().execute(request);
+        // ...when the string is returned from the object under test...
+        String result = myObjectUnderTest.getHelloWorldString();
 
-            // Then
-            String mimeType = ContentType.getOrDefault(response.getEntity()).getMimeType();
-            assertEquals(jsonMimeType, mimeType);
-        }
-        catch(IOException e)
-        {
-            e.printStackTrace();
-        }
+        // ...then the result should be the expected one.
+        assertThat(result, is(FAKE_STRING));*/
     }
 }

@@ -21,11 +21,12 @@ android {
 }
 
 dependencies {
-    compile 'org.apache.httpcomponents:httpclient-android:4.3.5'
+    //compile 'org.apache.httpcomponents:httpclient-android:4.3.5'
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
     testCompile 'org.json:json:20140107'
     compile 'com.android.support:appcompat-v7:24.2.1'
+    compile 'com.android.support:design:24.2.1'
     //used for postgres and restful services
     compile 'com.google.code.gson:gson:2.6.2'
     compile 'org.apache.httpcomponents:httpcore:4.4.1'

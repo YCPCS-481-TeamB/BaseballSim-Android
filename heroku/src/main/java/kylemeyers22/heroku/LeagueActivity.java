@@ -100,7 +100,7 @@ public class LeagueActivity extends AppCompatActivity {
         protected void onPostExecute(Void unused) {
             //close progress dialog
             Dialog.dismiss();
-            //Intent intent = new Intent(MainActivity.this, FieldActivity.class);
+            //Intent intent = new Intent(PlayerFragment.this, FieldActivity.class);
             // startActivity(intent);
             //finish();
 //

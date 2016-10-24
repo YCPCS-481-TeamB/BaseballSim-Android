@@ -120,9 +120,10 @@ public class LoginActivity extends AppCompatActivity {
                 jexc.printStackTrace();
             }
 
-            // Swap activities to MainActivity if authentication passed
+            // Swap activities to PlayerFragment if authentication passed
             if (loginSuccess) {
-                Intent intent = new Intent(LoginActivity.this, TeamActivity.class);
+//                Intent intent = new Intent(LoginActivity.this, TeamFragment.class);
+                Intent intent = new Intent(LoginActivity.this, MainTabbedActivity.class);
                 startActivity(intent);
                 finish();
             }

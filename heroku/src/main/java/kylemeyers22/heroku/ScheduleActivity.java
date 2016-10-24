@@ -58,7 +58,7 @@ public class ScheduleActivity extends AppCompatActivity{
             //close progress dialog
             Dialog.dismiss();
 
-            Intent intent = new Intent(ScheduleActivity.this, GameActivity.class);
+            Intent intent = new Intent(ScheduleActivity.this, GameFragment.class);
             startActivity(intent);
             finish();
 

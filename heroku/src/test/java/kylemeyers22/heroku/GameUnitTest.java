@@ -10,7 +10,7 @@ import static org.junit.Assert.assertEquals;
  * Created by shdw2 on 10/23/2016.
  */
 
-public class GameUnitTest extends GameActivity{
+public class GameUnitTest extends GameFragment {
     @Test
     public void testGame()
     {

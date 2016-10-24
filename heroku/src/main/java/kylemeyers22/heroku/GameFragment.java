@@ -1,16 +1,17 @@
 package kylemeyers22.heroku;
 
+import android.support.v4.app.Fragment;
 import android.app.ProgressDialog;
-import android.content.Intent;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,38 +24,39 @@ import java.util.Map;
 
 import kylemeyers22.heroku.utils.HttpUtils;
 
-/**
- * Created by shdw2 on 10/9/2016.
- */
-public class TeamActivity extends AppCompatActivity {
-    private ListView teamListView;
+public class GameFragment extends Fragment {
+    private ListView gameListView;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.team);
-        teamListView = (ListView) findViewById(R.id.teamsList);
+    public View onCreateView(LayoutInflater inflater, ViewGroup viewGroup, Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.game_fragment, viewGroup, false);
+    }
 
-        final Button getTeamButton = (Button) findViewById(R.id.getTeamButton);
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        gameListView = (ListView) getView().findViewById(R.id.gamesList);
 
-        getTeamButton.setOnClickListener(new View.OnClickListener() {
+        final Button getGameButton = (Button) getView().findViewById(R.id.getGameButton);
+
+        getGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 //webserver request url
-                String serverUrl = "https://baseballsim.herokuapp.com/api/teams";
+                String serverUrl = "https://baseballsim.herokuapp.com/api/games";
 
                 //use AsyncTask execute method to prevent ANR problem
-                new TeamActivity.LongOperation().execute(serverUrl);
+                new GameFragment.LongOperation().execute(serverUrl);
             }
         });
     }
 
-    public class LongOperation extends AsyncTask<String, Void, Void> {
+    private class LongOperation extends AsyncTask<String, Void, Void> {
 
         private String Content;
         private String Error = null;
-        private ProgressDialog Dialog = new ProgressDialog(TeamActivity.this);
+        private ProgressDialog Dialog = new ProgressDialog(getActivity());
         private ArrayAdapter<String> listAdapter;
 
         String data = "";
@@ -63,7 +65,7 @@ public class TeamActivity extends AppCompatActivity {
 //        TextView serverText = (TextView) findViewById(R.id.serverText);
 
         // Obtain API Authentication Token from LoginActivity's shared preferences
-        SharedPreferences sPref = getSharedPreferences("LoginActivity", MODE_PRIVATE);
+        SharedPreferences sPref = getActivity().getSharedPreferences("LoginActivity", Context.MODE_PRIVATE);
         final String apiToken = sPref.getString("apiToken", null);
 
         protected void onPreExecute() {
@@ -94,7 +96,7 @@ public class TeamActivity extends AppCompatActivity {
         protected void onPostExecute(Void unused) {
             //close progress dialog
             Dialog.dismiss();
-            //Intent intent = new Intent(MainActivity.this, FieldActivity.class);
+            //Intent intent = new Intent(PlayerFragment.this, FieldActivity.class);
             // startActivity(intent);
             //finish();
 //
@@ -109,7 +111,7 @@ public class TeamActivity extends AppCompatActivity {
             System.out.println("#---- IN onPostExecute ----#");
             System.out.println(Content);
 
-            ArrayList<String> teamList = new ArrayList<>();
+            ArrayList<String> gameList = new ArrayList<>();
 
             try {
                 JSONObject jObj = new JSONObject(Content);
@@ -122,21 +124,23 @@ public class TeamActivity extends AppCompatActivity {
                 //show output on screen
                 //jsonParsed.setText(OutputData);
                 //System.out.println(OutputData);
-                JSONArray teamsArray = jObj.getJSONArray("teams");
-                for (int i = 0; i < teamsArray.length(); ++i) {
-                    JSONObject item = teamsArray.getJSONObject(i);
+                JSONArray gamesArray = jObj.getJSONArray("games");
+                for (int i = 0; i < gamesArray.length(); ++i) {
+                    JSONObject item = gamesArray.getJSONObject(i);
 //                    System.out.println("PLAYER_FIRST: " + item.getString("firstname"));
 //                    System.out.println("PLAYER_LAST: " + item.getString("lastname"));
 //                    System.out.println("----------");
-                    teamList.add(item.getString("name"));
+
+                    //the games take two ints for teams and shows them. Need to find a way to get the ints of teams and show them as strings. I'm not the get at JSON
+                    //gameList.add(item.getInt("team1_id"));
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
 
-            System.out.println(teamList.size());
-            listAdapter = new ArrayAdapter<>(TeamActivity.this, R.layout.listrow, teamList);
-            teamListView.setAdapter(listAdapter);
+            System.out.println(gameList.size());
+            listAdapter = new ArrayAdapter<>(getActivity(), R.layout.listrow, gameList);
+            gameListView.setAdapter(listAdapter);
 
 //            }
         }

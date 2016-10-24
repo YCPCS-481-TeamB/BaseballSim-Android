@@ -57,10 +57,6 @@ public class TeamActivity extends AppCompatActivity {
         private ProgressDialog Dialog = new ProgressDialog(TeamActivity.this);
         private ArrayAdapter<String> listAdapter;
 
-        String data = "";
-//        TextView uiUpdate = (TextView) findViewById(R.id.playerFirstName);
-//        TextView jsonParsed = (TextView) findViewById(R.id.playerLastName);
-//        TextView serverText = (TextView) findViewById(R.id.serverText);
 
         // Obtain API Authentication Token from LoginActivity's shared preferences
         SharedPreferences sPref = getSharedPreferences("LoginActivity", MODE_PRIVATE);
@@ -70,13 +66,6 @@ public class TeamActivity extends AppCompatActivity {
             //start progress dialog message
             Dialog.setMessage("Please Wait...");
             Dialog.show();
-
-//            try {
-//                //set request parameter
-//                data += "&" + URLEncoder.encode("data", "UTF-8") + "=" + serverText.getText();
-//            } catch (UnsupportedEncodingException e) {
-//                e.printStackTrace();
-//            }
         }
 
         protected Void doInBackground(String... urls) {
@@ -94,18 +83,8 @@ public class TeamActivity extends AppCompatActivity {
         protected void onPostExecute(Void unused) {
             //close progress dialog
             Dialog.dismiss();
-            //Intent intent = new Intent(MainActivity.this, FieldActivity.class);
-            // startActivity(intent);
-            //finish();
-//
-//            if (Error != null) {
-//                uiUpdate.setText("Output : " + Error);
-//            } else {
-//                uiUpdate.setText(Content);
 
             //Receive JSON response
-            String OutputData;
-
             System.out.println("#---- IN onPostExecute ----#");
             System.out.println(Content);
 
@@ -113,21 +92,9 @@ public class TeamActivity extends AppCompatActivity {
 
             try {
                 JSONObject jObj = new JSONObject(Content);
-                System.out.println("##########");
-//                    System.out.println(jObj.getJSONArray("users").getJSONObject(0).getString("firstname"));
-
-//                    OutputData = "Output captured: " + jObj.getJSONArray("users").getJSONObject(0).getString("firstname");
-
-                OutputData = jObj.toString();
-                //show output on screen
-                //jsonParsed.setText(OutputData);
-                //System.out.println(OutputData);
                 JSONArray teamsArray = jObj.getJSONArray("teams");
                 for (int i = 0; i < teamsArray.length(); ++i) {
                     JSONObject item = teamsArray.getJSONObject(i);
-//                    System.out.println("PLAYER_FIRST: " + item.getString("firstname"));
-//                    System.out.println("PLAYER_LAST: " + item.getString("lastname"));
-//                    System.out.println("----------");
                     teamList.add(item.getString("name"));
                 }
             } catch (JSONException e) {
@@ -137,8 +104,6 @@ public class TeamActivity extends AppCompatActivity {
             System.out.println(teamList.size());
             listAdapter = new ArrayAdapter<>(TeamActivity.this, R.layout.listrow, teamList);
             teamListView.setAdapter(listAdapter);
-
-//            }
         }
     }
 }

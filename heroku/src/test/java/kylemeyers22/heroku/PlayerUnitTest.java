@@ -5,8 +5,6 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.entity.ContentType;
 import org.apache.http.impl.client.HttpClientBuilder;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -17,7 +15,7 @@ import static org.junit.Assert.assertEquals;
  * Created by shdw2 on 10/23/2016.
  */
 
-public class PlayerUnitTest extends MainActivity{
+public class PlayerUnitTest extends PlayerFragment {
     @Test
     public void testTeamName()
     {

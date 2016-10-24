@@ -17,7 +17,6 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.entity.ContentType;
-import org.apache.http.impl.client.HttpClientBuilder;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -74,7 +73,7 @@ public class TeamUnitTest{
 
             // this would be in the for real application
             public HttpUrlActivity() throws MalformedURLException, IOException {
-                this((HttpURLConnection) new URL("http://baseballsim.heroku.com/api/users").openConnection());
+                this((HttpURLConnection) new URL("http://baseballsim.heroku.com/api/teams").openConnection());
             }
 
             // this is how we inject the mock in our test

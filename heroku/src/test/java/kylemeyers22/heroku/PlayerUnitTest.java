@@ -1,38 +1,72 @@
 package kylemeyers22.heroku;
 
+import android.app.Activity;
+import android.os.Bundle;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.entity.ContentType;
-import org.apache.http.impl.client.HttpClientBuilder;
+import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.verify;
+import static org.robolectric.Shadows.shadowOf;
 
 /**
  * Created by shdw2 on 10/23/2016.
  */
 
 public class PlayerUnitTest extends PlayerFragment {
+    @Mock
+    HttpURLConnection mockHttpConnection;
+
+    PlayerUnitTest.HttpUrlActivity activity;
+
+    public class HttpUrlActivity extends Activity {
+
+        private HttpURLConnection httpConnection;
+
+        // this would be in the for real application
+        public HttpUrlActivity() throws MalformedURLException, IOException {
+            this((HttpURLConnection) new URL("http://baseballsim.heroku.com/api/players").openConnection());
+        }
+
+        // this is how we inject the mock in our test
+        public HttpUrlActivity(final HttpURLConnection httpConnection) {
+            this.httpConnection = httpConnection;
+        }
+
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            try {
+                httpConnection.setRequestMethod("GET");
+            } catch (ProtocolException e) {
+                throw new RuntimeException(e);
+            }
+            super.onCreate(savedInstanceState);
+        }
+
+    }
+
+    @Before
+    public void setUp() {
+        MockitoAnnotations.initMocks(this);
+        activity = new PlayerUnitTest.HttpUrlActivity(mockHttpConnection);
+    }
+
     @Test
-    public void testTeamName()
-    {
-        try {
-            String jsonMimeType = "application/json";
-            HttpUriRequest request = new HttpGet("https://baseballsim.herokuapp.com/api/players");
-
-            // When
-            HttpResponse response = HttpClientBuilder.create().build().execute(request);
-
-            // Then
-            String mimeType = ContentType.getOrDefault(response.getEntity()).getMimeType();
-            assertEquals(jsonMimeType, mimeType);
-        }
-        catch(IOException e)
-        {
-            e.printStackTrace();
-        }
+    public void itCanTestHttpURLConnectionStuff() throws ProtocolException {
+        shadowOf(activity).recreate();
+        verify(mockHttpConnection).setRequestMethod("GET");
     }
 }

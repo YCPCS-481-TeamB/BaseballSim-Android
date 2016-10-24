@@ -11,8 +11,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -27,7 +30,9 @@ import static org.robolectric.Shadows.shadowOf;
 /**
  * Created by shdw2 on 10/23/2016.
  */
-
+@RunWith(RobolectricTestRunner.class)
+@Config(manifest = Config.NONE, sdk = 23)
+//@Config(constants = BuildConfig.class)
 public class LeagueUnitTest extends LeagueActivity{
 
     @Mock

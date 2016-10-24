@@ -1,7 +1,6 @@
 package kylemeyers22.heroku;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -10,7 +9,6 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -26,7 +24,7 @@ import kylemeyers22.heroku.utils.HttpUtils;
 /**
  * Created by shdw2 on 10/9/2016.
  */
-public class GameActivity extends AppCompatActivity{
+public class GameFragment extends AppCompatActivity{
     private ListView gameListView;
 
     @Override
@@ -45,7 +43,7 @@ public class GameActivity extends AppCompatActivity{
                 String serverUrl = "https://baseballsim.herokuapp.com/api/games";
 
                 //use AsyncTask execute method to prevent ANR problem
-                new GameActivity.LongOperation().execute(serverUrl);
+                new GameFragment.LongOperation().execute(serverUrl);
             }
         });
     }
@@ -54,7 +52,7 @@ public class GameActivity extends AppCompatActivity{
 
         private String Content;
         private String Error = null;
-        private ProgressDialog Dialog = new ProgressDialog(GameActivity.this);
+        private ProgressDialog Dialog = new ProgressDialog(GameFragment.this);
         private ArrayAdapter<String> listAdapter;
 
         String data = "";
@@ -94,7 +92,7 @@ public class GameActivity extends AppCompatActivity{
         protected void onPostExecute(Void unused) {
             //close progress dialog
             Dialog.dismiss();
-            //Intent intent = new Intent(MainActivity.this, FieldActivity.class);
+            //Intent intent = new Intent(PlayerFragment.this, FieldActivity.class);
             // startActivity(intent);
             //finish();
 //
@@ -137,7 +135,7 @@ public class GameActivity extends AppCompatActivity{
             }
 
             System.out.println(gameList.size());
-            listAdapter = new ArrayAdapter<>(GameActivity.this, R.layout.listrow, gameList);
+            listAdapter = new ArrayAdapter<>(GameFragment.this, R.layout.listrow, gameList);
             gameListView.setAdapter(listAdapter);
 
 //            }

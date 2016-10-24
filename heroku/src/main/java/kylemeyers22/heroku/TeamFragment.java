@@ -3,8 +3,8 @@ package kylemeyers22.heroku;
 import android.app.ProgressDialog;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -21,37 +21,40 @@ import java.util.Map;
 
 import kylemeyers22.heroku.utils.HttpUtils;
 
-public class MainActivity extends AppCompatActivity {
-
-    private ListView playerListView;
+/**
+ * Created by shdw2 on 10/9/2016.
+ */
+public class TeamFragment extends AppCompatActivity {
+    private ListView teamListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_activity);
-        playerListView = (ListView) findViewById(R.id.playersList);
+        setContentView(R.layout.team);
+        teamListView = (ListView) findViewById(R.id.teamsList);
 
-        final Button getPlayerButton = (Button) findViewById(R.id.getPlayerButton);
+        final Button getTeamButton = (Button) findViewById(R.id.getTeamButton);
 
-        getPlayerButton.setOnClickListener(new View.OnClickListener() {
+        getTeamButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 //webserver request url
-                String serverUrl = "https://baseballsim.herokuapp.com/api/players";
+                String serverUrl = "https://baseballsim.herokuapp.com/api/teams";
 
                 //use AsyncTask execute method to prevent ANR problem
-                new LongOperation().execute(serverUrl);
+                new TeamFragment.LongOperation().execute(serverUrl);
             }
         });
     }
 
-    private class LongOperation extends AsyncTask<String, Void, Void> {
+    public class LongOperation extends AsyncTask<String, Void, Void> {
 
         private String Content;
         private String Error = null;
-        private ProgressDialog Dialog = new ProgressDialog(MainActivity.this);
+        private ProgressDialog Dialog = new ProgressDialog(TeamFragment.this);
         private ArrayAdapter<String> listAdapter;
+
 
         // Obtain API Authentication Token from LoginActivity's shared preferences
         SharedPreferences sPref = getSharedPreferences("LoginActivity", MODE_PRIVATE);
@@ -78,26 +81,27 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(Void unused) {
             //close progress dialog
             Dialog.dismiss();
+
             //Receive JSON response
             System.out.println("#---- IN onPostExecute ----#");
             System.out.println(Content);
 
-            ArrayList<String> playerList = new ArrayList<>();
+            ArrayList<String> teamList = new ArrayList<>();
 
             try {
                 JSONObject jObj = new JSONObject(Content);
-                JSONArray playersArray = jObj.getJSONArray("players");
-                for (int i = 0; i < playersArray.length(); ++i) {
-                    JSONObject item = playersArray.getJSONObject(i);
-                    playerList.add(item.getString("firstname") + " " + item.getString("lastname"));
+                JSONArray teamsArray = jObj.getJSONArray("teams");
+                for (int i = 0; i < teamsArray.length(); ++i) {
+                    JSONObject item = teamsArray.getJSONObject(i);
+                    teamList.add(item.getString("name"));
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
 
-            System.out.println(playerList.size());
-            listAdapter = new ArrayAdapter<>(MainActivity.this, R.layout.listrow, playerList);
-            playerListView.setAdapter(listAdapter);
+            System.out.println(teamList.size());
+            listAdapter = new ArrayAdapter<>(TeamFragment.this, R.layout.listrow, teamList);
+            teamListView.setAdapter(listAdapter);
         }
     }
 }

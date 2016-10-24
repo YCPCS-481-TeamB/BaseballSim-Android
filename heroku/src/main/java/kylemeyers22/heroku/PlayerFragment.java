@@ -30,14 +30,14 @@ public class PlayerFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup viewGroup, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.activity_main_activity, viewGroup, false);
+        return inflater.inflate(R.layout.player_fragment, viewGroup, false);
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         //super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_main_activity);
+        //setContentView(R.layout.player_fragment);
         playerListView = (ListView) getView().findViewById(R.id.playersList);
 
         final Button getPlayerButton = (Button) getView().findViewById(R.id.getPlayerButton);

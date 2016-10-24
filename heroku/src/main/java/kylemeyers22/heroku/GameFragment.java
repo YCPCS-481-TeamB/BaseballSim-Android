@@ -1,11 +1,14 @@
 package kylemeyers22.heroku;
 
+import android.support.v4.app.Fragment;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -21,19 +24,20 @@ import java.util.Map;
 
 import kylemeyers22.heroku.utils.HttpUtils;
 
-/**
- * Created by shdw2 on 10/9/2016.
- */
-public class GameFragment extends AppCompatActivity{
+public class GameFragment extends Fragment {
     private ListView gameListView;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.game);
-        gameListView = (ListView) findViewById(R.id.gamesList);
+    public View onCreateView(LayoutInflater inflater, ViewGroup viewGroup, Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.game_fragment, viewGroup, false);
+    }
 
-        final Button getGameButton = (Button) findViewById(R.id.getGameButton);
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        gameListView = (ListView) getView().findViewById(R.id.gamesList);
+
+        final Button getGameButton = (Button) getView().findViewById(R.id.getGameButton);
 
         getGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,7 +56,7 @@ public class GameFragment extends AppCompatActivity{
 
         private String Content;
         private String Error = null;
-        private ProgressDialog Dialog = new ProgressDialog(GameFragment.this);
+        private ProgressDialog Dialog = new ProgressDialog(getActivity());
         private ArrayAdapter<String> listAdapter;
 
         String data = "";
@@ -61,7 +65,7 @@ public class GameFragment extends AppCompatActivity{
 //        TextView serverText = (TextView) findViewById(R.id.serverText);
 
         // Obtain API Authentication Token from LoginActivity's shared preferences
-        SharedPreferences sPref = getSharedPreferences("LoginActivity", MODE_PRIVATE);
+        SharedPreferences sPref = getActivity().getSharedPreferences("LoginActivity", Context.MODE_PRIVATE);
         final String apiToken = sPref.getString("apiToken", null);
 
         protected void onPreExecute() {
@@ -135,7 +139,7 @@ public class GameFragment extends AppCompatActivity{
             }
 
             System.out.println(gameList.size());
-            listAdapter = new ArrayAdapter<>(GameFragment.this, R.layout.listrow, gameList);
+            listAdapter = new ArrayAdapter<>(getActivity(), R.layout.listrow, gameList);
             gameListView.setAdapter(listAdapter);
 
 //            }

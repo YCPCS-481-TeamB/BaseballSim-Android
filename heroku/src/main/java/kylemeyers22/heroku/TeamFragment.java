@@ -1,11 +1,14 @@
 package kylemeyers22.heroku;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -21,19 +24,20 @@ import java.util.Map;
 
 import kylemeyers22.heroku.utils.HttpUtils;
 
-/**
- * Created by shdw2 on 10/9/2016.
- */
-public class TeamFragment extends AppCompatActivity {
+public class TeamFragment extends Fragment {
     private ListView teamListView;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.team);
-        teamListView = (ListView) findViewById(R.id.teamsList);
+    public View onCreateView(LayoutInflater inflater, ViewGroup viewGroup, Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.team_fragment, viewGroup, false);
+    }
 
-        final Button getTeamButton = (Button) findViewById(R.id.getTeamButton);
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        teamListView = (ListView) getView().findViewById(R.id.teamsList);
+
+        final Button getTeamButton = (Button) getView().findViewById(R.id.getTeamButton);
 
         getTeamButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,12 +56,12 @@ public class TeamFragment extends AppCompatActivity {
 
         private String Content;
         private String Error = null;
-        private ProgressDialog Dialog = new ProgressDialog(TeamFragment.this);
+        private ProgressDialog Dialog = new ProgressDialog(getActivity());
         private ArrayAdapter<String> listAdapter;
 
 
         // Obtain API Authentication Token from LoginActivity's shared preferences
-        SharedPreferences sPref = getSharedPreferences("LoginActivity", MODE_PRIVATE);
+        SharedPreferences sPref = getActivity().getSharedPreferences("LoginActivity", Context.MODE_PRIVATE);
         final String apiToken = sPref.getString("apiToken", null);
 
         protected void onPreExecute() {
@@ -100,7 +104,7 @@ public class TeamFragment extends AppCompatActivity {
             }
 
             System.out.println(teamList.size());
-            listAdapter = new ArrayAdapter<>(TeamFragment.this, R.layout.listrow, teamList);
+            listAdapter = new ArrayAdapter<>(getActivity(), R.layout.listrow, teamList);
             teamListView.setAdapter(listAdapter);
         }
     }

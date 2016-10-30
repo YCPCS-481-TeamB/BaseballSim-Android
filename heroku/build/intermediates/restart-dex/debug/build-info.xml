@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<instant-run
+    abi="armeabi-v7a,armeabi"
+    api-level="23"
+    density="xxhdpi"
+    format="8"
+    plugin-version="2.2.2"
+    timestamp="451495960111361"
+    token="-6493663769490846225"
+    verifier="FULL_BUILD_REQUESTED" >
+
+    <task
+        name="javac"
+        duration="2204" />
+    <task
+        name="instant-run-dex"
+        duration="0" />
+    <task
+        name="instant-run-transform"
+        duration="2118" />
+    <task
+        name="verifier"
+        duration="347" />
+
+    <artifact
+        location="C:\Users\shdw2\AndroidStudioProjects\BaseballSimAndroid\heroku\build\outputs\apk\heroku-debug.apk"
+        type="MAIN" />
+
+    <build
+        timestamp="451495960111361"
+        verifier="FULL_BUILD_REQUESTED" >
+        <artifact
+            location="C:\Users\shdw2\AndroidStudioProjects\BaseballSimAndroid\heroku\build\outputs\apk\heroku-debug.apk"
+            type="MAIN" />
+    </build>
+
+</instant-run>

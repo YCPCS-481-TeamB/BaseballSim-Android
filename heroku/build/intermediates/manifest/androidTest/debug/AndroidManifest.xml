@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="kylemeyers22.heroku.test">
+
+    <uses-sdk android:minSdkVersion="23" android:targetSdkVersion="24" />
+
+    <application>
+        <uses-library android:name="android.test.runner" />
+    </application>
+
+    <instrumentation android:name="android.test.InstrumentationTestRunner"
+                     android:targetPackage="kylemeyers22.heroku"
+                     android:handleProfiling="false"
+                     android:functionalTest="false"
+                     android:label="Tests for kylemeyers22.heroku"/>
+</manifest>

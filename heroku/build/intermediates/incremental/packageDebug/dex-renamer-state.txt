@@ -1,0 +1,7 @@
+#Mon Oct 24 00:15:52 EDT 2016
+base.0=C\:\\Users\\shdw2\\AndroidStudioProjects\\BaseballSimAndroid\\heroku\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\instant-run_7d9b8b49161947cc85ada438450e741c0a93255d
+renamed.1=classes.dex
+renamed.0=classes2.dex
+file.1=C\:\\Users\\shdw2\\AndroidStudioProjects\\BaseballSimAndroid\\heroku\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\instant-run-bootstrap_bd47b38764c81659ff50727f99d2df1358f78305\\classes.dex
+base.1=C\:\\Users\\shdw2\\AndroidStudioProjects\\BaseballSimAndroid\\heroku\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\instant-run-bootstrap_bd47b38764c81659ff50727f99d2df1358f78305
+file.0=C\:\\Users\\shdw2\\AndroidStudioProjects\\BaseballSimAndroid\\heroku\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\instant-run_7d9b8b49161947cc85ada438450e741c0a93255d\\classes.dex

@@ -36,7 +36,9 @@ dependencies {
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
     //used for junit tests
     testCompile "org.robolectric:robolectric:3.1.2"
+    // Required - JUnit4 Framework
+    testCompile 'junit:junit:4.12'
 
-    //mockito for mocking the http connection for the tests
+    // Optional - Mockito Framework
     testCompile 'org.mockito:mockito-core:1.10.19'
 }

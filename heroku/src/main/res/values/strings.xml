@@ -6,4 +6,6 @@
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
+    <string name="new_user">Create an account</string>
+    <string name="welcome">Welcome to the BaseballSimulator</string>
 </resources>

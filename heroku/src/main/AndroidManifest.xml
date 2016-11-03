@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="kylemeyers22.heroku">
     //allows access to the internet for the backend
-    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -25,31 +25,32 @@
         <!-- BaseballSim Field -->
         <activity
             android:name=".FieldActivity"
-            android:label="Fields of Baseballsim"></activity>
+            android:label="Fields of Baseballsim" />
 
         <!-- BaseballSim League -->
         <activity
             android:name=".LeagueActivity"
-            android:label="Leagues of Baseballsim"></activity>
+            android:label="Leagues of Baseballsim" />
 
         <!-- BaseballSim Teams -->
         <activity
             android:name=".TeamFragment"
-            android:label="Teams of Baseballsim"></activity>
+            android:label="Teams of Baseballsim" />
 
         <!-- BaseballSim Schedule -->
         <activity
             android:name=".ScheduleActivity"
-            android:label="Schedules of Baseballsim"></activity>
+            android:label="Schedules of Baseballsim" />
 
         <!-- BaseballSim Game -->
         <activity
             android:name=".GameFragment"
-            android:label="Games of Baseballsim"></activity>
+            android:label="Games of Baseballsim" />
         <activity
             android:name=".PlayerFragment"
             android:label="Main Baseballsim Display" />
-        <activity android:name=".MainTabbedActivity"></activity>
+        <activity android:name=".MainTabbedActivity" />
+        <activity android:name=".CreateUserActivity"></activity>
     </application>
 
 </manifest>

@@ -34,6 +34,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.login);
 
         final Button loginButton = (Button) findViewById(R.id.AuthButton);
+        final Button newUserButton = (Button) findViewById(R.id.NewUserButton);
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,6 +42,15 @@ public class LoginActivity extends AppCompatActivity {
                 // Direct LongOperation to API token endpoint
                 String authUrl = "https://baseballsim.herokuapp.com/api/users/token";
                 new LongOperation().execute(authUrl);
+            }
+        });
+
+        newUserButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, CreateUserActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
     }

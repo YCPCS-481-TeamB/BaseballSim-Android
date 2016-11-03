@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="kylemeyers22.heroku">
+    //allows access to the internet for the backend
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+
+        <!-- BaseballSim Login -->
+        <activity
+            android:name=".LoginActivity"
+            android:label="Login to Baseballsim">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- BaseballSim Field -->
+        <activity
+            android:name=".FieldActivity"
+            android:label="Fields of Baseballsim"></activity>
+
+        <!-- BaseballSim League -->
+        <activity
+            android:name=".LeagueActivity"
+            android:label="Leagues of Baseballsim"></activity>
+
+        <!-- BaseballSim Teams -->
+        <activity
+            android:name=".TeamFragment"
+            android:label="Teams of Baseballsim"></activity>
+
+        <!-- BaseballSim Schedule -->
+        <activity
+            android:name=".ScheduleActivity"
+            android:label="Schedules of Baseballsim"></activity>
+
+        <!-- BaseballSim Game -->
+        <activity
+            android:name=".GameFragment"
+            android:label="Games of Baseballsim"></activity>
+        <activity
+            android:name=".PlayerFragment"
+            android:label="Main Baseballsim Display" />
+        <activity android:name=".MainTabbedActivity"></activity>
+    </application>
+
+</manifest>

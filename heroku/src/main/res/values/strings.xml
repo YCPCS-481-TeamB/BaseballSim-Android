@@ -5,7 +5,14 @@
     <string name="getPlayersButton">Get Players</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="email">Email</string>
     <string name="login">Login</string>
+    <string name="create_login">Create and Login</string>
     <string name="new_user">Create an account</string>
     <string name="welcome">Welcome to the BaseballSimulator</string>
+    <string name="required">Required</string>
+    <string name="optional">Optional</string>
+    <string name="account_info">Enter info for account</string>
 </resources>

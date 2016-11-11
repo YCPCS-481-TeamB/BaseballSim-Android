@@ -1,5 +1,6 @@
 package kylemeyers22.heroku;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -22,10 +23,33 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import kylemeyers22.heroku.apiObjects.Team;
 import kylemeyers22.heroku.utils.HttpUtils;
 
 public class TeamFragment extends Fragment {
     private ListView teamListView;
+
+    TeamsUpdated teamCallback;
+    public interface TeamsUpdated{
+        void sendTeams(ArrayList<Team> teamList);
+    }
+
+    @Override
+    public void onAttach(Context thisContext) {
+        super.onAttach(thisContext);
+
+        try {
+            teamCallback = (TeamsUpdated) thisContext;
+        } catch (ClassCastException exc) {
+            throw new ClassCastException(thisContext.toString() + " must implement TeamsUpdated");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        teamCallback = null;
+        super.onDetach();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup viewGroup, Bundle savedInstanceState) {
@@ -39,13 +63,13 @@ public class TeamFragment extends Fragment {
 
         final Button getTeamButton = (Button) getView().findViewById(R.id.getTeamButton);
 
+        //webserver request url
+        final String serverUrl = "https://baseballsim.herokuapp.com/api/teams";
+        new TeamFragment.LongOperation().execute(serverUrl);
+
         getTeamButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                //webserver request url
-                String serverUrl = "https://baseballsim.herokuapp.com/api/teams";
-
                 //use AsyncTask execute method to prevent ANR problem
                 new TeamFragment.LongOperation().execute(serverUrl);
             }
@@ -91,6 +115,7 @@ public class TeamFragment extends Fragment {
             System.out.println(Content);
 
             ArrayList<String> teamList = new ArrayList<>();
+            ArrayList<Team> teamObjs = new ArrayList<>();
 
             try {
                 JSONObject jObj = new JSONObject(Content);
@@ -98,12 +123,21 @@ public class TeamFragment extends Fragment {
                 for (int i = 0; i < teamsArray.length(); ++i) {
                     JSONObject item = teamsArray.getJSONObject(i);
                     teamList.add(item.getString("name"));
+                    teamObjs.add(new Team(item.getInt("id"), item.getString("name")));
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
 
-            System.out.println(teamList.size());
+            // Store list of teams in GameFragment's arg list for use
+            System.out.println("STORING BUNDLE ARGUMENTS");
+//            Fragment gameFrag = new GameFragment();
+//            Bundle teamBundle = new Bundle();
+//            teamBundle.putSerializable("teamsObjs", teamObjs);
+//            gameFrag.setArguments(teamBundle);
+            teamCallback.sendTeams(teamObjs);
+
+            //System.out.println(teamList.size());
             listAdapter = new ArrayAdapter<>(getActivity(), R.layout.listrow, teamList);
             teamListView.setAdapter(listAdapter);
         }

@@ -15,4 +15,10 @@
     <string name="required">Required</string>
     <string name="optional">Optional</string>
     <string name="account_info">Enter info for account</string>
+    <string name="game_history">Game History</string>
+    <string name="game_button">Start New Game</string>
+    <string name="team_button">Refresh Teams</string>
+    <string name="team_one">Team One</string>
+    <string name="team_two">Team Two</string>
+    <string name="start">Fun Go!</string>
 </resources>

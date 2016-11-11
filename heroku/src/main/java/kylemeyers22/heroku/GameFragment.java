@@ -1,5 +1,6 @@
 package kylemeyers22.heroku;
 
+import android.app.Dialog;
 import android.support.v4.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Spinner;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -22,10 +24,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import kylemeyers22.heroku.apiObjects.Team;
 import kylemeyers22.heroku.utils.HttpUtils;
 
 public class GameFragment extends Fragment {
     private ListView gameListView;
+    private ArrayList<Team> teamObjs;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup viewGroup, Bundle savedInstanceState) {
@@ -38,18 +42,45 @@ public class GameFragment extends Fragment {
         gameListView = (ListView) getView().findViewById(R.id.gamesList);
 
         final Button getGameButton = (Button) getView().findViewById(R.id.getGameButton);
+        // webserver request url
+        String serverUrl = "https://baseballsim.herokuapp.com/api/games";
 
+        // Fetch current history of games
+        new GameFragment.LongOperation().execute(serverUrl);
+
+        // Initiate new game
         getGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                //webserver request url
-                String serverUrl = "https://baseballsim.herokuapp.com/api/games";
-
-                //use AsyncTask execute method to prevent ANR problem
-                new GameFragment.LongOperation().execute(serverUrl);
+                createStartGameForm();
             }
         });
+    }
+
+    public void storeTeams(ArrayList<Team> teamList) {
+        teamObjs = teamList;
+    }
+
+    private void createStartGameForm() {
+        Dialog startGame = new Dialog(this.getContext());
+        startGame.setContentView(R.layout.start_game);
+        startGame.setCancelable(true);
+
+        Button gameStart = (Button) startGame.findViewById(R.id.startGameButton);
+        Spinner teamOneSpin = (Spinner) startGame.findViewById(R.id.team_one);
+        Spinner teamTwoSpin = (Spinner) startGame.findViewById(R.id.team_two);
+        ArrayAdapter adapter = new ArrayAdapter(this.getContext(), android.R.layout.simple_spinner_item, teamObjs);
+
+        teamOneSpin.setAdapter(adapter);
+        teamTwoSpin.setAdapter(adapter);
+
+        gameStart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Click stuff
+            }
+        });
+
     }
 
     private class LongOperation extends AsyncTask<String, Void, Void> {

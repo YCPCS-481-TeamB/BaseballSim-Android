@@ -29,4 +29,20 @@
         android:layout_height="match_parent"
         android:layout_below="@id/tab_layout"/>
 
+    <fragment
+        android:name="kylemeyers22.heroku.PlayerFragment"
+        android:id="@+id/player_fragment"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"/>
+    <fragment
+        android:name="kylemeyers22.heroku.TeamFragment"
+        android:id="@+id/team_fragment"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"/>
+    <fragment
+        android:name="kylemeyers22.heroku.GameFragment"
+        android:id="@+id/game_fragment"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"/>
+
 </RelativeLayout>

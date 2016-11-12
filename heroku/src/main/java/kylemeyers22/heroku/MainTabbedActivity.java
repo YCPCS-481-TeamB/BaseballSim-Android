@@ -15,8 +15,9 @@ import kylemeyers22.heroku.utils.Constants;
 public class MainTabbedActivity extends AppCompatActivity implements TeamFragment.TeamsUpdated {
     @Override
     public void sendTeams(ArrayList<Team> teamList) {
-        GameFragment gameFrag = (GameFragment) getSupportFragmentManager().findFragmentById(R.id.gameFragment);
+        GameFragment gameFrag = (GameFragment) getSupportFragmentManager().findFragmentById(R.id.game_fragment);
         System.out.println("TABBED ACTIVITY: " + teamList.toString());
+        System.out.println("Fragment: " + gameFrag.toString());
         gameFrag.storeTeams(teamList);
     }
 

@@ -20,11 +20,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import kylemeyers22.heroku.utils.Constants;
 import kylemeyers22.heroku.utils.HttpUtils;
-
-/**
- * Created by Ben Coover on 10/4/2016.
- */
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -39,9 +36,7 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Direct LongOperation to API token endpoint
-                String authUrl = "https://baseballsim.herokuapp.com/api/users/token";
-                new LongOperation().execute(authUrl);
+                new LongOperation().execute(Constants.authAPI);
             }
         });
 

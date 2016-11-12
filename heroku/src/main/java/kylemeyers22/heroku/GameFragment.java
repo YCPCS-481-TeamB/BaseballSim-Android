@@ -25,6 +25,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import kylemeyers22.heroku.apiObjects.Team;
+import kylemeyers22.heroku.utils.Constants;
 import kylemeyers22.heroku.utils.HttpUtils;
 
 public class GameFragment extends Fragment {
@@ -41,11 +42,9 @@ public class GameFragment extends Fragment {
         gameListView = (ListView) getView().findViewById(R.id.gamesList);
 
         final Button getGameButton = (Button) getView().findViewById(R.id.getGameButton);
-        // webserver request url
-        String serverUrl = "https://baseballsim.herokuapp.com/api/games";
 
         // Fetch current history of games
-        new GameFragment.LongOperation().execute(serverUrl);
+        new GameFragment.LongOperation().execute(Constants.gamesAPI);
 
         // Initiate new game
         getGameButton.setOnClickListener(new View.OnClickListener() {

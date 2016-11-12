@@ -1,6 +1,5 @@
 package kylemeyers22.heroku;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -24,6 +23,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import kylemeyers22.heroku.apiObjects.Team;
+import kylemeyers22.heroku.utils.Constants;
 import kylemeyers22.heroku.utils.HttpUtils;
 
 public class TeamFragment extends Fragment {
@@ -42,14 +42,13 @@ public class TeamFragment extends Fragment {
         final Button getTeamButton = (Button) getView().findViewById(R.id.getTeamButton);
 
         //webserver request url
-        final String serverUrl = "https://baseballsim.herokuapp.com/api/teams";
-        new TeamFragment.LongOperation().execute(serverUrl);
+        new TeamFragment.LongOperation().execute(Constants.teamsAPI);
 
         getTeamButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //use AsyncTask execute method to prevent ANR problem
-                new TeamFragment.LongOperation().execute(serverUrl);
+                new TeamFragment.LongOperation().execute(Constants.teamsAPI);
             }
         });
     }

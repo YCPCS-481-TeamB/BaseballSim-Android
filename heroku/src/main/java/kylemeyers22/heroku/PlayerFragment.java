@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import kylemeyers22.heroku.utils.Constants;
 import kylemeyers22.heroku.utils.HttpUtils;
 
 public class PlayerFragment extends Fragment {
@@ -45,12 +46,8 @@ public class PlayerFragment extends Fragment {
         getPlayerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                //webserver request url
-                String serverUrl = "https://baseballsim.herokuapp.com/api/players";
-
                 //use AsyncTask execute method to prevent ANR problem
-                new LongOperation().execute(serverUrl);
+                new LongOperation().execute(Constants.playersAPI);
             }
         });
     }

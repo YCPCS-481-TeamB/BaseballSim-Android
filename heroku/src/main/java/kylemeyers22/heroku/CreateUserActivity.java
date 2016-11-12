@@ -17,11 +17,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
+import kylemeyers22.heroku.utils.Constants;
 import kylemeyers22.heroku.utils.HttpUtils;
 
 public class CreateUserActivity extends AppCompatActivity {
@@ -45,9 +44,7 @@ public class CreateUserActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Direct to users endpoint for account creation
-                String urlUser = "https://baseballsim.herokuapp.com/api/users";
-                String urlLogin = "https://baseballsim.herokuapp.com/api/users/token";
-                new LongOperation().execute(urlUser, urlLogin);
+                new LongOperation().execute(Constants.usersAPI, Constants.authAPI);
             }
         });
     }

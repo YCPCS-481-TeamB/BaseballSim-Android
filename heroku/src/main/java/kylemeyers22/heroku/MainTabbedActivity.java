@@ -1,6 +1,7 @@
 package kylemeyers22.heroku;
 
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,14 +13,8 @@ import kylemeyers22.heroku.adapters.TabAdapter;
 import kylemeyers22.heroku.apiObjects.Team;
 import kylemeyers22.heroku.utils.Constants;
 
-public class MainTabbedActivity extends AppCompatActivity implements TeamFragment.TeamsUpdated {
-    @Override
-    public void sendTeams(ArrayList<Team> teamList) {
-        GameFragment gameFrag = (GameFragment) getSupportFragmentManager().findFragmentById(R.id.game_fragment);
-        System.out.println("TABBED ACTIVITY: " + teamList.toString());
-        System.out.println("Fragment: " + gameFrag.toString());
-        gameFrag.storeTeams(teamList);
-    }
+public class MainTabbedActivity extends AppCompatActivity {
+    public static ArrayList<Team> teamList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

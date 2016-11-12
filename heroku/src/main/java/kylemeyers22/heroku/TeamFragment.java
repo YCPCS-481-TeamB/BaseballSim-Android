@@ -29,28 +29,6 @@ import kylemeyers22.heroku.utils.HttpUtils;
 public class TeamFragment extends Fragment {
     private ListView teamListView;
 
-    TeamsUpdated teamCallback;
-    public interface TeamsUpdated{
-        void sendTeams(ArrayList<Team> teamList);
-    }
-
-    @Override
-    public void onAttach(Context thisContext) {
-        super.onAttach(thisContext);
-
-        try {
-            teamCallback = (TeamsUpdated) thisContext;
-        } catch (ClassCastException exc) {
-            throw new ClassCastException(thisContext.toString() + " must implement TeamsUpdated");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        teamCallback = null;
-        super.onDetach();
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup viewGroup, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.team_fragment, viewGroup, false);
@@ -129,13 +107,8 @@ public class TeamFragment extends Fragment {
                 e.printStackTrace();
             }
 
-            // Store list of teams in GameFragment's arg list for use
-            System.out.println("STORING BUNDLE ARGUMENTS");
-//            Fragment gameFrag = new GameFragment();
-//            Bundle teamBundle = new Bundle();
-//            teamBundle.putSerializable("teamsObjs", teamObjs);
-//            gameFrag.setArguments(teamBundle);
-            teamCallback.sendTeams(teamObjs);
+            // Set list of teams in MainTabbedActivity for use in GameFragment
+            MainTabbedActivity.teamList = teamObjs;
 
             //System.out.println(teamList.size());
             listAdapter = new ArrayAdapter<>(getActivity(), R.layout.listrow, teamList);

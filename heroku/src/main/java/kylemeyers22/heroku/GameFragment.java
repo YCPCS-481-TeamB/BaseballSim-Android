@@ -62,12 +62,15 @@ public class GameFragment extends Fragment {
         startGame.setCanceledOnTouchOutside(false);
 
         ArrayList<Team> teamObjs = MainTabbedActivity.teamList;
-//        System.out.println("Team state: " + teamObjs);
 
         Button gameStart = (Button) startGame.findViewById(R.id.startGameButton);
-        Spinner teamOneSpin = (Spinner) startGame.findViewById(R.id.team_one);
-        Spinner teamTwoSpin = (Spinner) startGame.findViewById(R.id.team_two);
-        ArrayAdapter adapter = new ArrayAdapter(this.getContext(), android.R.layout.simple_spinner_item, teamObjs);
+        final Spinner teamOneSpin = (Spinner) startGame.findViewById(R.id.team_one);
+        final Spinner teamTwoSpin = (Spinner) startGame.findViewById(R.id.team_two);
+        ArrayAdapter<Team> adapter = new ArrayAdapter<>(
+                this.getContext(),
+                android.R.layout.simple_spinner_item,
+                teamObjs
+        );
 
         teamOneSpin.setAdapter(adapter);
         teamTwoSpin.setAdapter(adapter);
@@ -77,7 +80,10 @@ public class GameFragment extends Fragment {
         gameStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Click stuff
+                Team teamOne = (Team) teamOneSpin.getSelectedItem();
+                Team teamTwo = (Team) teamTwoSpin.getSelectedItem();
+                System.out.println("Team 1: " + teamOne.toString() + " | " + teamOne.getTeamID());
+                System.out.println("Team 2: " + teamTwo.toString() + " | " + teamTwo.getTeamID());
             }
         });
 
@@ -116,9 +122,6 @@ public class GameFragment extends Fragment {
             //close progress dialog
             Dialog.dismiss();
 
-            //Receive JSON response
-            String OutputData;
-
             System.out.println("#---- IN onPostExecute ----#");
             System.out.println(Content);
 
@@ -142,8 +145,6 @@ public class GameFragment extends Fragment {
             System.out.println(gameList.size());
             listAdapter = new ArrayAdapter<>(getActivity(), R.layout.listrow, gameList);
             gameListView.setAdapter(listAdapter);
-
-//            }
         }
     }
 }

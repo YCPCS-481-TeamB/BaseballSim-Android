@@ -6,6 +6,7 @@ public class Constants {
 
     // API locations
     public static final String rootAPI = "https://baseballsim.herokuapp.com/api/";
+    //public static final String rootAPI = "localhost:3000/console";
     public static final String usersAPI = rootAPI + "users/";
     public static final String authAPI = usersAPI + "token/";
     public static final String playersAPI = rootAPI + "players/";

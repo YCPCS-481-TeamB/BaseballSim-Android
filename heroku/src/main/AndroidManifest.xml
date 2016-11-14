@@ -50,7 +50,9 @@
             android:name=".PlayerFragment"
             android:label="Main Baseballsim Display" />
         <activity android:name=".MainTabbedActivity" />
-        <activity android:name=".CreateUserActivity"></activity>
+        <activity android:name=".CreateUserActivity"/>
+        <activity android:name=".CreateNewGameActivity"></activity>
+
     </application>
 
 </manifest>

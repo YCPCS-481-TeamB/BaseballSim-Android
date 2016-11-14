@@ -1,6 +1,8 @@
 package kylemeyers22.heroku;
 
+import android.app.Activity;
 import android.app.Dialog;
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -31,6 +33,36 @@ import kylemeyers22.heroku.utils.HttpUtils;
 
 public class GameFragment extends Fragment {
     private ListView gameListView;
+
+    private int teamOneId;
+    private String teamOneName;
+
+    private int teamTwoId;
+    private String teamTwoName;
+
+
+    //interface to interact with the activity for the team id variables
+    public interface OnGameCreatedListener{
+        public void onTeamSelected(int teamOneId, String teamOneName, int teamTwoId, String teamTwoName);
+    }
+
+    OnGameCreatedListener mCallback;
+
+    @Override
+    public void onAttach(Activity activity)
+    {
+        super.onAttach(activity);
+        try{
+            mCallback = (OnGameCreatedListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException((activity.toString() + "must implement OnGameCreatedListener"));
+        }
+    }
+
+    public void setListener(OnGameCreatedListener listener)
+    {
+        mCallback = listener;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup viewGroup, Bundle savedInstanceState) {
@@ -86,7 +118,13 @@ public class GameFragment extends Fragment {
                 System.out.println("Team 1: " + teamOne.toString() + " | " + teamOne.getTeamID());
                 System.out.println("Team 2: " + teamTwo.toString() + " | " + teamTwo.getTeamID());
 
+                //send the event to the host activity
+                mCallback.onTeamSelected(teamOne.getTeamID(), teamOne.toString(), teamTwo.getTeamID(), teamTwo.toString());
 
+                //creating a new game
+                Intent intent = new Intent(v.getContext(), CreateNewGameActivity.class);
+                startActivity(intent);
+                //finish();
             }
         });
 

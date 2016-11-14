@@ -1,5 +1,6 @@
 package kylemeyers22.heroku;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
@@ -12,9 +13,24 @@ import java.util.ArrayList;
 import kylemeyers22.heroku.adapters.TabAdapter;
 import kylemeyers22.heroku.apiObjects.Team;
 import kylemeyers22.heroku.utils.Constants;
+import kylemeyers22.heroku.utils.TeamVariables;
 
-public class MainTabbedActivity extends AppCompatActivity {
+public class MainTabbedActivity extends AppCompatActivity implements GameFragment.OnGameCreatedListener{
     public static ArrayList<Team> teamList;
+
+    private int teamOneId;
+    private String teamOneName;
+
+    private int teamTwoId;
+    private String teamTwoName;
+    //need to implement it for the interface
+    public void onTeamSelected(int teamOneId, String teamOneName, int teamTwoId, String teamTwoName)
+    {
+
+
+        System.out.println(teamOneId +" whooooooooo" + teamOneName);
+        System.out.println(teamTwoId +" whoooooooo " + teamTwoName);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

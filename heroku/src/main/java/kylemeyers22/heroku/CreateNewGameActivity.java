@@ -146,4 +146,4 @@ public class CreateNewGameActivity extends AppCompatActivity{
         }
 
     }
-}
+

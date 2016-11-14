@@ -33,8 +33,8 @@ public class MainTabbedActivity extends AppCompatActivity implements GameFragmen
         TeamVariables.setTeamTwoId(teamTwoId);
         TeamVariables.setTeamTwoName(teamTwoName);
 
-        System.out.println(teamOneId +" whooooooooo" + teamOneName);
-        System.out.println(teamTwoId +" whoooooooo " + teamTwoName);
+        System.out.println(teamOneName +" whooooooooo" + teamOneId);
+        System.out.println(teamTwoName +" whoooooooo " + teamTwoId);
     }
 
     @Override

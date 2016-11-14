@@ -109,7 +109,7 @@ public class GameFragment extends Fragment {
         teamTwoSpin.setAdapter(adapter);
 
         startGame.show();
-//starts the game. send the info to a gamesController(?) to post(?)
+
         gameStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

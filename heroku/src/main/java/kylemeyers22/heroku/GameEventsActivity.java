@@ -31,13 +31,21 @@ public class GameEventsActivity extends AppCompatActivity{
         teamTwoId = TeamVariables.getTeamTwoId();
         teamTwoName = TeamVariables.getTeamTwoName();
 
-        System.out.println(teamOneName +" whoo " + teamOneId);
-        System.out.println(teamTwoName +" whoo " + teamTwoId);
+        System.out.println(teamOneName +" whoo event " + teamOneId);
+        System.out.println(teamTwoName +" whoo event " + teamTwoId);
 
 //probably needs to be an int or json obj
         String gameId = getIntent().getExtras().getString("gameId");
 
-        new GameEventsActivity.LongOperation().execute(Constants.gamesAPI + "/:id/start/");
+        System.out.println("Game ID: " +gameId);
+
+        new GameEventsActivity.LongOperation().execute(Constants.gamesAPI + "/" + gameId + "/start/");
+        //where :id is the gameId
+        //the api route for the events would be Constants.gamesAPI + "/events/:event_id/positions
+        //to get the latest event is Constants.gamesAPI + /:id/positions/latest
+        //to get all the events is Constants.gamesAPI + /:id/events
+        //to calculate the next event Constants.gamesAPI + /:id/events/next
+        //there are more! but these are the ones to focus on
     }
     private class LongOperation extends AsyncTask<String, Void, Void> {
 

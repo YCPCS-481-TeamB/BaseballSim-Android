@@ -81,7 +81,9 @@ public class CreateNewGameActivity extends AppCompatActivity{
                 Map<String, String> props = new HashMap<>();
                 props.put("Content-Type", "application/x-www-form-urlencoded");
 
+
                 gameId = HttpUtils.doPost(urls[0], props, authParams);
+
             } catch (IOException exc) {
                 exc.printStackTrace();
             }
@@ -130,6 +132,10 @@ public class CreateNewGameActivity extends AppCompatActivity{
             if(gameCreateSuccess)
             {
                 //swap to gameplay or?
+                Intent intent = new Intent(CreateNewGameActivity.this, GameEventsActivity.class);
+                intent.putExtra("gameId", gameId);
+                startActivity(intent);
+                finish();
             }
         }
 

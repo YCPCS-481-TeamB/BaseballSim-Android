@@ -132,10 +132,16 @@ public class CreateNewGameActivity extends AppCompatActivity{
             if(gameCreateSuccess)
             {
                 //swap to gameplay or?
-                Intent intent = new Intent(CreateNewGameActivity.this, GameEventsActivity.class);
-                intent.putExtra("gameId", gameId);
-                startActivity(intent);
-                finish();
+                try {
+                    Intent intent = new Intent(CreateNewGameActivity.this, GameEventsActivity.class);
+                    intent.putExtra("gameId", gameCreateJson.getString("id"));
+                    startActivity(intent);
+                    finish();
+                }catch(JSONException jexc) {
+                    jexc.printStackTrace();
+                }
+            }
+
             }
         }
 

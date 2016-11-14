@@ -26,7 +26,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import kylemeyers22.heroku.apiObjects.Game;
 import kylemeyers22.heroku.apiObjects.Team;
 import kylemeyers22.heroku.utils.Constants;
 import kylemeyers22.heroku.utils.HttpUtils;
@@ -34,20 +33,15 @@ import kylemeyers22.heroku.utils.HttpUtils;
 public class GameFragment extends Fragment {
     private ListView gameListView;
 
-    private int teamOneId;
-    private String teamOneName;
-
-    private int teamTwoId;
-    private String teamTwoName;
-
-
     //interface to interact with the activity for the team id variables
     public interface OnGameCreatedListener{
         public void onTeamSelected(int teamOneId, String teamOneName, int teamTwoId, String teamTwoName);
     }
 
+    //listener that goes with the interface
     OnGameCreatedListener mCallback;
 
+    //attaching the listener to the activity (which is MainTabbedActivity (for some reason))
     @Override
     public void onAttach(Activity activity)
     {
@@ -57,11 +51,6 @@ public class GameFragment extends Fragment {
         } catch (ClassCastException e) {
             throw new ClassCastException((activity.toString() + "must implement OnGameCreatedListener"));
         }
-    }
-
-    public void setListener(OnGameCreatedListener listener)
-    {
-        mCallback = listener;
     }
 
     @Override

@@ -20,7 +20,7 @@ public class GameEventsActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
-        System.out.println("creaing events for the game");
+        System.out.println("Creating events for the game");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_game);
 
@@ -54,7 +54,7 @@ public class GameEventsActivity extends AppCompatActivity{
         protected void onPreExecute() {
 
 
-            Dialog.setMessage("Creating game and positioning players...");
+            Dialog.setMessage("Events are being created as we speak...");
             Dialog.show();
         }
 

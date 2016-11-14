@@ -1,47 +1,49 @@
 package kylemeyers22.heroku.utils;
 
 
-public class TeamVariables {
-    private int teamOneId;
-    private String teamOneName;
+import android.app.Application;
 
-    private int teamTwoId;
-    private String teamTwoName;
+public class TeamVariables extends Application{
+    private static int teamOneId;
+    private static String teamOneName;
 
-    public void setTeamOneId(int teamOneId)
+    private static int teamTwoId;
+    private static String teamTwoName;
+
+    public static void setTeamOneId(int teamOneIds)
     {
-        this.teamOneId = teamOneId;
-    }
-
-    public void setTeamTwoId(int teamTwoId)
-    {
-        this.teamTwoId= teamTwoId;
+        teamOneId = teamOneIds;
     }
 
-    public void setTeamOneName(String teamOneName)
+    public static void setTeamTwoId(int teamTwoIds)
     {
-        this.teamOneName = teamOneName;
+        teamTwoId= teamTwoIds;
     }
 
-    public void setTeamTwoName(String teamTwoName)
+    public static void setTeamOneName(String teamOneNames)
     {
-        this.teamTwoName = teamTwoName;
+        teamOneName = teamOneNames;
     }
 
-    public int getTeamOneId ()
+    public static void setTeamTwoName(String teamTwoNames)
     {
-        return this.teamOneId;
+        teamTwoName = teamTwoNames;
     }
-    public int getTeamTwoId()
+
+    public static int getTeamOneId ()
     {
-        return this.teamTwoId;
+        return teamOneId;
     }
-    public String getTeamOneName()
+    public static int getTeamTwoId()
     {
-        return this.teamOneName;
+        return teamTwoId;
     }
-    public String getTeamTwoName ()
+    public static String getTeamOneName()
     {
-        return this.teamTwoName;
+        return teamOneName;
+    }
+    public static String getTeamTwoName ()
+    {
+        return teamTwoName;
     }
 }

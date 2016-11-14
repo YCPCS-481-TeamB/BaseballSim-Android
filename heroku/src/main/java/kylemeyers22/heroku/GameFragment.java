@@ -121,6 +121,7 @@ public class GameFragment extends Fragment {
                 //send the event to the host activity
                 mCallback.onTeamSelected(teamOne.getTeamID(), teamOne.toString(), teamTwo.getTeamID(), teamTwo.toString());
 
+
                 //creating a new game
                 Intent intent = new Intent(v.getContext(), CreateNewGameActivity.class);
                 startActivity(intent);

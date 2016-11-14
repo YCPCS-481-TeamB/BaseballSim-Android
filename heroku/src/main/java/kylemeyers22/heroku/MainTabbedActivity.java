@@ -27,6 +27,11 @@ public class MainTabbedActivity extends AppCompatActivity implements GameFragmen
     public void onTeamSelected(int teamOneId, String teamOneName, int teamTwoId, String teamTwoName)
     {
 
+        //setting the variables from the fragment to the createnewgame class
+        TeamVariables.setTeamOneId(teamOneId);
+        TeamVariables.setTeamOneName(teamOneName);
+        TeamVariables.setTeamTwoId(teamTwoId);
+        TeamVariables.setTeamTwoName(teamTwoName);
 
         System.out.println(teamOneId +" whooooooooo" + teamOneName);
         System.out.println(teamTwoId +" whoooooooo " + teamTwoName);

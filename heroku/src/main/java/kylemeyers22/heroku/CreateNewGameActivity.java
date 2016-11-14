@@ -58,7 +58,12 @@ public class CreateNewGameActivity extends AppCompatActivity{
     private class LongOperation extends AsyncTask<String, Void, Void> {
 
         private ProgressDialog Dialog = new ProgressDialog(CreateNewGameActivity.this);
+        private String gameId;
+        private JSONObject gameCreateJson;
+        private boolean gameCreateSuccess = false;
 
+
+        SharedPreferences sharedPref = CreateNewGameActivity.this.getPreferences(Context.MODE_PRIVATE);
 
         protected void onPreExecute() {
 
@@ -69,12 +74,63 @@ public class CreateNewGameActivity extends AppCompatActivity{
 
         protected Void doInBackground(String... urls) {
 
+            try {
+                //creating the game with all the appropriate variables
+                String authParams = "team1_id=" + teamOneName + "team2_id=" + teamTwoId +
+                        "field_id=" + 0 + "league_id=" + 0 + "date_created=" + "";
+                Map<String, String> props = new HashMap<>();
+                props.put("Content-Type", "application/x-www-form-urlencoded");
+
+                gameId = HttpUtils.doPost(urls[0], props, authParams);
+            } catch (IOException exc) {
+                exc.printStackTrace();
+            }
 
             return null;
         }
 
         protected void onPostExecute(Void unused) {
 
+            Dialog.dismiss();
+
+            SharedPreferences.Editor editor = sharedPref.edit();
+
+            try {
+                gameCreateJson = new JSONObject(gameId);
+
+                //check the http reply for a successful game creation
+                if(!gameCreateJson.getBoolean("success"))
+                {
+                    AlertDialog.Builder gameAlert = new AlertDialog.Builder(CreateNewGameActivity.this);
+
+                    //creaste and display an error message
+                    gameAlert.setMessage("Invalid arguments for game");
+                    gameAlert.setTitle("Game Creation Failure");
+                    gameAlert.setPositiveButton("OK", null);
+                    gameAlert.setCancelable(true);
+                    gameAlert.create().show();
+
+                    gameAlert.setPositiveButton("Ok", new DialogInterface.OnClickListener()
+                    {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {}
+                    });
+                }  else
+                {
+                    //game created successfully
+                    gameCreateSuccess = true;
+                    //getting the id of the game
+                    editor.putString("game_id",gameCreateJson.getString("id") );
+                    editor.apply();
+                }
+            } catch(JSONException jexc){
+                jexc.printStackTrace();
+            }
+
+            if(gameCreateSuccess)
+            {
+                //swap to gameplay or?
+            }
         }
 
     }

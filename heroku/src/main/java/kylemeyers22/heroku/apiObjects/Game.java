@@ -1,6 +1,5 @@
 package kylemeyers22.heroku.apiObjects;
 
-
 public class Game {
     private int game_id;
     private int team1_id;
@@ -30,5 +29,4 @@ public class Game {
     public int getLeagueId() { return this.league_id; }
 
     public String getDateCreated() { return this.date_created; }
-
 }

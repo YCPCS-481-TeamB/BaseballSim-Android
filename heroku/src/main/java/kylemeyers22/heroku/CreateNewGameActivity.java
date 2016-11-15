@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import kylemeyers22.heroku.utils.Constants;
+import kylemeyers22.heroku.utils.Endpoints;
 import kylemeyers22.heroku.utils.HttpUtils;
 import kylemeyers22.heroku.utils.TeamVariables;
 
@@ -46,7 +46,7 @@ public class CreateNewGameActivity extends AppCompatActivity{
         System.out.println(teamOneName +" whoo " + teamOneId);
         System.out.println(teamTwoName +" whoo " + teamTwoId);
 
-        new LongOperation().execute(Constants.gamesAPI);
+        new LongOperation().execute(Endpoints.gamesAPI);
     }
 
     private class LongOperation extends AsyncTask<String, Void, Void> {

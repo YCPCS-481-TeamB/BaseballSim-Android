@@ -20,7 +20,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import kylemeyers22.heroku.utils.Constants;
+import kylemeyers22.heroku.utils.Endpoints;
 import kylemeyers22.heroku.utils.HttpUtils;
 
 public class CreateUserActivity extends AppCompatActivity {
@@ -44,7 +44,7 @@ public class CreateUserActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Direct to users endpoint for account creation
-                new LongOperation().execute(Constants.usersAPI, Constants.authAPI);
+                new LongOperation().execute(Endpoints.usersAPI, Endpoints.authAPI);
             }
         });
     }

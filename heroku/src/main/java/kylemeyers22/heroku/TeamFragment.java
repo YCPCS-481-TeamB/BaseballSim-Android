@@ -23,7 +23,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import kylemeyers22.heroku.apiObjects.Team;
-import kylemeyers22.heroku.utils.Constants;
+import kylemeyers22.heroku.utils.Endpoints;
 import kylemeyers22.heroku.utils.HttpUtils;
 
 public class TeamFragment extends Fragment {
@@ -42,13 +42,13 @@ public class TeamFragment extends Fragment {
         final Button getTeamButton = (Button) getView().findViewById(R.id.getTeamButton);
 
         //webserver request url
-        new TeamFragment.LongOperation().execute(Constants.teamsAPI);
+        new TeamFragment.LongOperation().execute(Endpoints.teamsAPI);
 
         getTeamButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //use AsyncTask execute method to prevent ANR problem
-                new TeamFragment.LongOperation().execute(Constants.teamsAPI);
+                new TeamFragment.LongOperation().execute(Endpoints.teamsAPI);
             }
         });
     }

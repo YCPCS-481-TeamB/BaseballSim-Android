@@ -1,6 +1,6 @@
 package kylemeyers22.heroku.utils;
 
-public class Constants {
+public class Endpoints {
     // Set to number of tabs on the MainTabbedActivity
     public static final int offScreenLimit = 3;
 
@@ -12,4 +12,12 @@ public class Constants {
     public static final String playersAPI = rootAPI + "players/";
     public static final String teamsAPI = rootAPI + "teams/";
     public static final String gamesAPI = rootAPI + "games/";
+
+    public String gameStartAPI(int gameID) {
+        return gamesAPI + Integer.toString(gameID) + "/start/";
+    }
+
+    public String gameNextAPI(int gameID) {
+        return gamesAPI + Integer.toString(gameID) + "/events/next/";
+    }
 }

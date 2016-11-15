@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import kylemeyers22.heroku.utils.Constants;
+import kylemeyers22.heroku.utils.Endpoints;
 import kylemeyers22.heroku.utils.HttpUtils;
 
 public class PlayerFragment extends Fragment {
@@ -47,7 +47,7 @@ public class PlayerFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 //use AsyncTask execute method to prevent ANR problem
-                new LongOperation().execute(Constants.playersAPI);
+                new LongOperation().execute(Endpoints.playersAPI);
             }
         });
     }

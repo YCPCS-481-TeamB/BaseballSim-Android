@@ -6,7 +6,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import kylemeyers22.heroku.utils.Constants;
+import kylemeyers22.heroku.utils.Endpoints;
 import kylemeyers22.heroku.utils.TeamVariables;
 
 public class GameEventsActivity extends AppCompatActivity{
@@ -39,12 +39,12 @@ public class GameEventsActivity extends AppCompatActivity{
 
         System.out.println("Game ID: " +gameId);
 
-        new GameEventsActivity.LongOperation().execute(Constants.gamesAPI + "/" + gameId + "/start/");
+        new GameEventsActivity.LongOperation().execute(Endpoints.gamesAPI + "/" + gameId + "/start/");
         //where :id is the gameId
-        //the api route for the events would be Constants.gamesAPI + "/events/:event_id/positions
-        //to get the latest event is Constants.gamesAPI + /:id/positions/latest
-        //to get all the events is Constants.gamesAPI + /:id/events
-        //to calculate the next event Constants.gamesAPI + /:id/events/next
+        //the api route for the events would be Endpoints.gamesAPI + "/events/:event_id/positions
+        //to get the latest event is Endpoints.gamesAPI + /:id/positions/latest
+        //to get all the events is Endpoints.gamesAPI + /:id/events
+        //to calculate the next event Endpoints.gamesAPI + /:id/events/next
         //there are more! but these are the ones to focus on
     }
     private class LongOperation extends AsyncTask<String, Void, Void> {

@@ -21,4 +21,5 @@
     <string name="team_one">Team One</string>
     <string name="team_two">Team Two</string>
     <string name="start">Fun Go!</string>
+    <string name="game_header">Game %1$d</string>
 </resources>

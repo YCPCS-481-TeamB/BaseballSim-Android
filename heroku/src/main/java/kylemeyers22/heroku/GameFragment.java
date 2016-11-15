@@ -25,6 +25,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import kylemeyers22.heroku.adapters.GameListItemAdapter;
+import kylemeyers22.heroku.apiObjects.Game;
 import kylemeyers22.heroku.apiObjects.Team;
 import kylemeyers22.heroku.utils.Endpoints;
 import kylemeyers22.heroku.utils.HttpUtils;
@@ -121,9 +123,9 @@ public class GameFragment extends Fragment {
     private class LongOperation extends AsyncTask<String, Void, Void> {
 
         private String Content;
-        private String Error = null;
         private ProgressDialog Dialog = new ProgressDialog(getActivity());
         private ArrayAdapter<String> listAdapter;
+        private GameListItemAdapter gameAdapter;
 
         // Obtain API Authentication Token from LoginActivity's shared preferences
         SharedPreferences sPref = getActivity().getSharedPreferences("LoginActivity", Context.MODE_PRIVATE);
@@ -151,29 +153,30 @@ public class GameFragment extends Fragment {
             //close progress dialog
             Dialog.dismiss();
 
-            System.out.println("#---- IN onPostExecute ----#");
-            System.out.println(Content);
-
             ArrayList<String> gameList = new ArrayList<>();
+            ArrayList<Game> gameItems = new ArrayList<>();
 
             try {
                 JSONObject jObj = new JSONObject(Content);
-                System.out.println("##########");
 
                 JSONArray gamesArray = jObj.getJSONArray("games");
                 for (int i = 0; i < gamesArray.length(); ++i) {
                     JSONObject item = gamesArray.getJSONObject(i);
-
-                    //the games take two ints for teams and shows them. Need to find a way to get the ints of teams and show them as strings. I'm not the get at JSON
-                    //gameList.add(item.getInt("team1_id"));
+                    gameItems.add(new Game(item.getInt("id"),
+                            item.getInt("team1_id"),
+                            item.getInt("team2_id"),
+                            item.getInt("field_id"),
+                            item.getInt("league_id"),
+                            item.getString("date_created")));
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
 
-            System.out.println(gameList.size());
-            listAdapter = new ArrayAdapter<>(getActivity(), R.layout.listrow, gameList);
-            gameListView.setAdapter(listAdapter);
+            //listAdapter = new ArrayAdapter<>(getActivity(), R.layout.listrow, gameList);
+            gameAdapter = new GameListItemAdapter(getActivity(), R.layout.gamerow, gameItems);
+            //gameListView.setAdapter(listAdapter);
+            gameListView.setAdapter(gameAdapter);
         }
     }
 }

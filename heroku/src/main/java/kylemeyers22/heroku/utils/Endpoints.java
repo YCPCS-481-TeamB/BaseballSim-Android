@@ -13,11 +13,11 @@ public class Endpoints {
     public static final String teamsAPI = rootAPI + "teams/";
     public static final String gamesAPI = rootAPI + "games/";
 
-    public String gameStartAPI(int gameID) {
+    public static String gameStartAPI(int gameID) {
         return gamesAPI + Integer.toString(gameID) + "/start/";
     }
 
-    public String gameNextAPI(int gameID) {
+    public static String gameNextAPI(int gameID) {
         return gamesAPI + Integer.toString(gameID) + "/events/next/";
     }
 }

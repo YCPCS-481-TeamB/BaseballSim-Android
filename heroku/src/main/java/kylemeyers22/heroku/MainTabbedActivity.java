@@ -13,27 +13,27 @@ import kylemeyers22.heroku.apiObjects.Team;
 import kylemeyers22.heroku.utils.Endpoints;
 import kylemeyers22.heroku.utils.TeamVariables;
 
-public class MainTabbedActivity extends AppCompatActivity implements GameFragment.OnGameCreatedListener{
+public class MainTabbedActivity extends AppCompatActivity /*implements GameFragment.OnGameCreatedListener*/ {
     public static ArrayList<Team> teamList;
 
-    private int teamOneId;
-    private String teamOneName;
-
-    private int teamTwoId;
-    private String teamTwoName;
-    //need to implement it for the interface
-    public void onTeamSelected(int teamOneId, String teamOneName, int teamTwoId, String teamTwoName)
-    {
-
-        //setting the variables from the fragment to the createnewgame class
-        TeamVariables.setTeamOneId(teamOneId);
-        TeamVariables.setTeamOneName(teamOneName);
-        TeamVariables.setTeamTwoId(teamTwoId);
-        TeamVariables.setTeamTwoName(teamTwoName);
-
-        System.out.println(teamOneName +" whooooooooo" + teamOneId);
-        System.out.println(teamTwoName +" whoooooooo " + teamTwoId);
-    }
+//    private int teamOneId;
+//    private String teamOneName;
+//
+//    private int teamTwoId;
+//    private String teamTwoName;
+//    //need to implement it for the interface
+//    public void onTeamSelected(int teamOneId, String teamOneName, int teamTwoId, String teamTwoName)
+//    {
+//
+//        //setting the variables from the fragment to the createnewgame class
+//        TeamVariables.setTeamOneId(teamOneId);
+//        TeamVariables.setTeamOneName(teamOneName);
+//        TeamVariables.setTeamTwoId(teamTwoId);
+//        TeamVariables.setTeamTwoName(teamTwoName);
+//
+//        System.out.println(teamOneName +" whooooooooo" + teamOneId);
+//        System.out.println(teamTwoName +" whoooooooo " + teamTwoId);
+//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

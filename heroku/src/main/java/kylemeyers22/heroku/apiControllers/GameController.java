@@ -29,7 +29,7 @@ public class GameController {
     private Game gameFromContent(String gameContent) throws JSONException {
         JSONObject gameJson = new JSONObject(gameContent);
 
-        return new Game(gameJson.getInt("game_id"),
+        return new Game(gameJson.getInt("id"),
                 gameJson.getInt("team1_id"), gameJson.getInt("team2_id"),
                 gameJson.getInt("field_id"), gameJson.getInt("league_id"),
                 gameJson.getString("date_created"));
@@ -46,5 +46,17 @@ public class GameController {
         String gameResponse = HttpUtils.doPost(Endpoints.gamesAPI, requestParams, requestBody);
 
         return gameFromContent(gameResponse);
+    }
+
+    public void startGame(Game toStart) throws IOException {
+        Map<String, String> requestParams = initMap();
+
+        HttpUtils.doPost(Endpoints.gameStartAPI(toStart.getGameId()), requestParams, null);
+    }
+
+    public void getNextEvent(Game toAdvance) throws IOException {
+        Map<String, String> requestParams = initMap();
+
+        HttpUtils.doPost(Endpoints.gameNextAPI(toAdvance.getGameId()), requestParams, null);
     }
 }

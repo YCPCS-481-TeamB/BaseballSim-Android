@@ -11,11 +11,11 @@ import kylemeyers22.heroku.utils.TeamVariables;
 
 public class GameEventsActivity extends AppCompatActivity{
 
-    private int teamOneId;
-    private String teamOneName;
+//    private int teamOneId;
+ //   private String teamOneName;
 
-    private int teamTwoId;
-    private String teamTwoName;
+//    private int teamTwoId;
+//    private String teamTwoName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -25,14 +25,14 @@ public class GameEventsActivity extends AppCompatActivity{
         setContentView(R.layout.create_game);
 
 
-        teamOneId = TeamVariables.getTeamOneId();
-        teamOneName = TeamVariables.getTeamOneName();
+      //  teamOneId = TeamVariables.getTeamOneId();
+      //  teamOneName = TeamVariables.getTeamOneName();
 
-        teamTwoId = TeamVariables.getTeamTwoId();
-        teamTwoName = TeamVariables.getTeamTwoName();
+    //    teamTwoId = TeamVariables.getTeamTwoId();
+    //    teamTwoName = TeamVariables.getTeamTwoName();
 
-        System.out.println(teamOneName +" whoo event " + teamOneId);
-        System.out.println(teamTwoName +" whoo event " + teamTwoId);
+     //   System.out.println(teamOneName +" whoo event " + teamOneId);
+     //   System.out.println(teamTwoName +" whoo event " + teamTwoId);
 
 //probably needs to be an int or json obj
         String gameId = getIntent().getExtras().getString("gameId");

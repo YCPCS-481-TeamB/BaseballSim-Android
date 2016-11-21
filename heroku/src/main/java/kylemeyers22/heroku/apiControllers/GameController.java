@@ -54,9 +54,12 @@ public class GameController {
         HttpUtils.doPost(Endpoints.gameStartAPI(toStart.getGameId()), requestParams, null);
     }
 
-    public void getNextEvent(Game toAdvance) throws IOException {
+    public void getNextEvent(Game toAdvance, int playerOneID, int playerTwoID) throws IOException {
         Map<String, String> requestParams = initMap();
+        String nextBody = "game_id=" + toAdvance.getGameId() +
+                          "&player1_id=" + playerOneID +
+                          "&player2_id=" + playerTwoID;
 
-        HttpUtils.doPost(Endpoints.gameNextAPI(toAdvance.getGameId()), requestParams, null);
+        HttpUtils.doPost(Endpoints.gameNextAPI(toAdvance.getGameId()), requestParams, nextBody);
     }
 }

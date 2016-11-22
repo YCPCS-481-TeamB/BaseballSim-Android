@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import kylemeyers22.heroku.adapters.TabAdapter;
 import kylemeyers22.heroku.apiObjects.Team;
+import kylemeyers22.heroku.utils.Constants;
 import kylemeyers22.heroku.utils.Endpoints;
 import kylemeyers22.heroku.utils.TeamVariables;
 
@@ -51,7 +52,7 @@ public class MainTabbedActivity extends AppCompatActivity /*implements GameFragm
         final TabAdapter adapter = new TabAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
 
         viewPager.setAdapter(adapter);
-        viewPager.setOffscreenPageLimit(Endpoints.offScreenLimit);
+        viewPager.setOffscreenPageLimit(Constants.offScreenLimit);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override

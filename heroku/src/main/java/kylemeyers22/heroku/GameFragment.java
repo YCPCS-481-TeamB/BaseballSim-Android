@@ -124,7 +124,6 @@ public class GameFragment extends Fragment {
 
         private String Content;
         private ProgressDialog Dialog = new ProgressDialog(getActivity());
-        private ArrayAdapter<String> listAdapter;
         private GameListItemAdapter gameAdapter;
 
         // Obtain API Authentication Token from LoginActivity's shared preferences

@@ -4,16 +4,17 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import kylemeyers22.heroku.ApprovalsFragment;
 import kylemeyers22.heroku.GameFragment;
 import kylemeyers22.heroku.PlayerFragment;
 import kylemeyers22.heroku.TeamFragment;
 
-/**
- * Created by Ben Coover on 10/23/2016.
- */
-
 public class TabAdapter extends FragmentStatePagerAdapter {
     private int numTabs;
+    private PlayerFragment playerFrag;
+    private TeamFragment teamFrag;
+    private GameFragment gameFrag;
+    private ApprovalsFragment approveFrag;
 
     public TabAdapter(FragmentManager fragMan, int numberTabs) {
         super(fragMan);
@@ -29,6 +30,8 @@ public class TabAdapter extends FragmentStatePagerAdapter {
                 return new TeamFragment();
             case 2:
                 return new GameFragment();
+            case 3:
+                return new ApprovalsFragment();
             default:
                 return null;
         }

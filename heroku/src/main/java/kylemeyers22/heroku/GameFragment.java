@@ -26,6 +26,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import kylemeyers22.heroku.adapters.GameListItemAdapter;
+import kylemeyers22.heroku.apiControllers.GameController;
 import kylemeyers22.heroku.apiObjects.Game;
 import kylemeyers22.heroku.apiObjects.Team;
 import kylemeyers22.heroku.utils.Endpoints;
@@ -33,26 +34,11 @@ import kylemeyers22.heroku.utils.HttpUtils;
 
 public class GameFragment extends Fragment {
     private ListView gameListView;
+    private GameController gameController;
 
-//    //interface to interact with the activity for the team id variables
-//    public interface OnGameCreatedListener{
-//        public void onTeamSelected(int teamOneId, String teamOneName, int teamTwoId, String teamTwoName);
-//    }
-//
-//    //listener that goes with the interface
-//    OnGameCreatedListener mCallback;
-//
-//    //attaching the listener to the activity (which is MainTabbedActivity (for some reason))
-//    @Override
-//    public void onAttach(Activity activity)
-//    {
-//        super.onAttach(activity);
-//        try{
-//            mCallback = (OnGameCreatedListener) activity;
-//        } catch (ClassCastException e) {
-//            throw new ClassCastException((activity.toString() + "must implement OnGameCreatedListener"));
-//        }
-//    }
+    // Obtain API Authentication Token from LoginActivity's shared preferences
+    SharedPreferences sPref;
+    String apiToken;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup viewGroup, Bundle savedInstanceState) {
@@ -63,6 +49,8 @@ public class GameFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         gameListView = (ListView) getView().findViewById(R.id.gamesList);
+        sPref = getActivity().getSharedPreferences("LoginActivity", Context.MODE_PRIVATE);
+        apiToken = sPref.getString("apiToken", null);
 
         final Button getGameButton = (Button) getView().findViewById(R.id.getGameButton);
 
@@ -107,14 +95,15 @@ public class GameFragment extends Fragment {
                 Team teamTwo = (Team) teamTwoSpin.getSelectedItem();
                 System.out.println("Team 1: " + teamOne.toString() + " | " + teamOne.getTeamID());
                 System.out.println("Team 2: " + teamTwo.toString() + " | " + teamTwo.getTeamID());
-//
-//                //send the event to the host activity
-//                mCallback.onTeamSelected(teamOne.getTeamID(), teamOne.toString(), teamTwo.getTeamID(), teamTwo.toString());
 
-                //creating a new game
-                Intent intent = new Intent(v.getContext(), CreateNewGameActivity.class);
-                startActivity(intent);
-                //finish();
+                gameController = new GameController(apiToken);
+                try {
+                    gameController.createGame(teamOne.getTeamID(), teamTwo.getTeamID());
+                } catch (IOException | JSONException gexc) {
+                    System.out.println("Game creation failed!");
+                    gexc.getCause();
+                    gexc.printStackTrace();
+                }
             }
         });
 
@@ -125,10 +114,6 @@ public class GameFragment extends Fragment {
         private String Content;
         private ProgressDialog Dialog = new ProgressDialog(getActivity());
         private GameListItemAdapter gameAdapter;
-
-        // Obtain API Authentication Token from LoginActivity's shared preferences
-        SharedPreferences sPref = getActivity().getSharedPreferences("LoginActivity", Context.MODE_PRIVATE);
-        final String apiToken = sPref.getString("apiToken", null);
 
         protected void onPreExecute() {
             //start progress dialog message
@@ -152,7 +137,6 @@ public class GameFragment extends Fragment {
             //close progress dialog
             Dialog.dismiss();
 
-            ArrayList<String> gameList = new ArrayList<>();
             ArrayList<Game> gameItems = new ArrayList<>();
 
             try {
@@ -172,9 +156,7 @@ public class GameFragment extends Fragment {
                 e.printStackTrace();
             }
 
-            //listAdapter = new ArrayAdapter<>(getActivity(), R.layout.listrow, gameList);
             gameAdapter = new GameListItemAdapter(getActivity(), R.layout.gamerow, gameItems);
-            //gameListView.setAdapter(listAdapter);
             gameListView.setAdapter(gameAdapter);
         }
     }

@@ -16,6 +16,7 @@ import android.widget.TextView;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -62,6 +63,7 @@ public class LoginActivity extends AppCompatActivity {
 
         private JSONObject loginJson;
         private boolean loginSuccess = false;
+        private boolean serviceFailure = false;
 
         SharedPreferences sharedPref = LoginActivity.this.getPreferences(Context.MODE_PRIVATE);
 
@@ -84,8 +86,11 @@ public class LoginActivity extends AppCompatActivity {
                 props.put("Content-Type", "application/x-www-form-urlencoded");
 
                 authToken = HttpUtils.doPost(urls[0], props, authParams);
-            } catch (IOException exc) {
-                exc.printStackTrace();
+            } catch (FileNotFoundException exc) {
+                // Occurs if the service is unavailable for some reason
+                serviceFailure = true;
+            } catch (IOException iexc) {
+                iexc.printStackTrace();
             }
 
             return null;
@@ -96,38 +101,57 @@ public class LoginActivity extends AppCompatActivity {
 
             SharedPreferences.Editor editor = sharedPref.edit();
 
-            // Parse JSON for API Token and save to Shared Preferences for access elsewhere
-            try {
-                loginJson = new JSONObject(authToken);
+            // Trigger an alert if the service is unavailable
+            if (serviceFailure) {
+                AlertDialog.Builder failBuilder = new AlertDialog.Builder(LoginActivity.this);
 
-                // Check the HTTP Reply for a successful authentication
-                if (!loginJson.getBoolean("success")) {
-                    AlertDialog.Builder loginAlert = new AlertDialog.Builder(LoginActivity.this);
+                failBuilder.setMessage("Service is currently unavailable");
+                failBuilder.setTitle("Service Failure");
+                failBuilder.setPositiveButton("OK", null);
+                failBuilder.setCancelable(true);
+                failBuilder.create().show();
 
-                    // Create and display an error dialog
-                    loginAlert.setMessage("Invalid Password and/or Username");
-                    loginAlert.setTitle("Login Failure");
-                    loginAlert.setPositiveButton("OK", null);
-                    loginAlert.setCancelable(true);
-                    loginAlert.create().show();
+                failBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
 
-                    loginAlert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {}
-                    });
-                } else {
-                    // Auth succeeded, extract and save apiToken
-                    loginSuccess = true;
-                    editor.putString("apiToken", loginJson.getString("token"));
-                    editor.apply();
+                    }
+                });
+            } else {
+                // Parse JSON for API Token and save to Shared Preferences for access elsewhere
+                try {
+                    loginJson = new JSONObject(authToken);
+
+                    // Check the HTTP Reply for a successful authentication
+                    if (!loginJson.getBoolean("success")) {
+                        AlertDialog.Builder loginAlert = new AlertDialog.Builder(LoginActivity.this);
+
+                        // Create and display an error dialog
+                        loginAlert.setMessage("Invalid Password and/or Username");
+                        loginAlert.setTitle("Login Failure");
+                        loginAlert.setPositiveButton("OK", null);
+                        loginAlert.setCancelable(true);
+                        loginAlert.create().show();
+
+                        loginAlert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        });
+                    } else {
+                        // Auth succeeded, extract and save apiToken
+                        loginSuccess = true;
+                        editor.putString("apiToken", loginJson.getString("token"));
+                        editor.putString("currentUser", uname);
+                        editor.apply();
+                    }
+                } catch (JSONException jexc) {
+                    jexc.printStackTrace();
                 }
-            } catch (JSONException jexc) {
-                jexc.printStackTrace();
             }
 
             // Swap activities to PlayerFragment if authentication passed
             if (loginSuccess) {
-//                Intent intent = new Intent(LoginActivity.this, TeamFragment.class);
                 Intent intent = new Intent(LoginActivity.this, MainTabbedActivity.class);
                 startActivity(intent);
                 finish();

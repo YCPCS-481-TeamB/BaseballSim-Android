@@ -1,5 +1,7 @@
 package kylemeyers22.heroku.apiControllers;
 
+import android.content.Context;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -27,7 +29,7 @@ public class GameController {
     }
 
     private Game gameFromContent(String gameContent) throws JSONException {
-        JSONObject gameJson = new JSONObject(gameContent);
+        JSONObject gameJson = new JSONObject(gameContent).getJSONObject("game");
 
         return new Game(gameJson.getInt("id"),
                 gameJson.getInt("team1_id"), gameJson.getInt("team2_id"),
@@ -36,14 +38,17 @@ public class GameController {
     }
 
     public Game createGame(int teamOneID, int teamTwoID) throws IOException, JSONException {
+        System.out.println("IN createGame: Teams given - " + teamOneID + " | " + teamTwoID);
         Map<String, String> requestParams = initMap();
         // field_id and league_id currently hardcoded.
         // TODO: Provide handling for parameterized field and league ID
-        String requestBody = "team_one=" + Integer.toString(teamOneID) +
-                             "&team_two=" + Integer.toString(teamTwoID) +
+        String requestBody = "team1_id=" + Integer.toString(teamOneID) +
+                             "&team2_id=" + Integer.toString(teamTwoID) +
                              "&field_id=0" + "&league_id=0";
+        System.out.println("Sending: " + requestBody);
 
         String gameResponse = HttpUtils.doPost(Endpoints.gamesAPI, requestParams, requestBody);
+        System.out.println("IN createGame: " + gameResponse);
 
         return gameFromContent(gameResponse);
     }

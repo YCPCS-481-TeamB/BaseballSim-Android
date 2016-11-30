@@ -34,11 +34,10 @@ import kylemeyers22.heroku.utils.HttpUtils;
 
 public class GameFragment extends Fragment {
     private ListView gameListView;
-    private GameController gameController;
 
     // Obtain API Authentication Token from LoginActivity's shared preferences
-    SharedPreferences sPref;
-    String apiToken;
+    private String apiToken;
+    private int userID;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup viewGroup, Bundle savedInstanceState) {
@@ -49,13 +48,14 @@ public class GameFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         gameListView = (ListView) getView().findViewById(R.id.gamesList);
-        sPref = getActivity().getSharedPreferences("LoginActivity", Context.MODE_PRIVATE);
+        SharedPreferences sPref = getActivity().getSharedPreferences("LoginActivity", Context.MODE_PRIVATE);
         apiToken = sPref.getString("apiToken", null);
+        userID = sPref.getInt("currentUser", -1);
 
         final Button getGameButton = (Button) getView().findViewById(R.id.getGameButton);
 
         // Fetch current history of games
-        new GameFragment.LongOperation().execute(Endpoints.gamesAPI);
+        new GameFragment.LongOperation().execute(Endpoints.userGamesAPI(userID));
 
         // Initiate new game
         getGameButton.setOnClickListener(new View.OnClickListener() {
@@ -67,7 +67,7 @@ public class GameFragment extends Fragment {
     }
 
     private void createStartGameForm() {
-        Dialog startGame = new Dialog(this.getContext());
+        final Dialog startGame = new Dialog(this.getContext());
         startGame.setContentView(R.layout.start_game);
         startGame.setCancelable(true);
         startGame.setCanceledOnTouchOutside(false);
@@ -96,14 +96,8 @@ public class GameFragment extends Fragment {
                 System.out.println("Team 1: " + teamOne.toString() + " | " + teamOne.getTeamID());
                 System.out.println("Team 2: " + teamTwo.toString() + " | " + teamTwo.getTeamID());
 
-                gameController = new GameController(apiToken);
-                try {
-                    gameController.createGame(teamOne.getTeamID(), teamTwo.getTeamID());
-                } catch (IOException | JSONException gexc) {
-                    System.out.println("Game creation failed!");
-                    gexc.getCause();
-                    gexc.printStackTrace();
-                }
+                new StartGameTask().execute(teamOne.getTeamID(), teamTwo.getTeamID());
+                startGame.dismiss();
             }
         });
 
@@ -158,6 +152,31 @@ public class GameFragment extends Fragment {
 
             gameAdapter = new GameListItemAdapter(getActivity(), R.layout.gamerow, gameItems);
             gameListView.setAdapter(gameAdapter);
+        }
+    }
+
+    private class StartGameTask extends AsyncTask<Integer, Void, Void> {
+        private GameController gameController;
+        private Game newGame;
+
+        protected Void doInBackground(Integer... teamData) {
+            gameController = new GameController(apiToken);
+
+            try {
+                newGame = gameController.createGame(teamData[0], teamData[1]);
+            } catch (IOException | JSONException gexc) {
+                System.out.println("Could not create game!");
+                gexc.getCause();
+                gexc.printStackTrace();
+            }
+
+            return null;
+        }
+
+        protected void onPostExecute(Void unused) {
+            System.out.println("New game created: " + newGame.getDateCreated() + " | " + newGame.getGameId());
+            // Refresh game list
+            new LongOperation().execute(Endpoints.userGamesAPI(userID));
         }
     }
 }

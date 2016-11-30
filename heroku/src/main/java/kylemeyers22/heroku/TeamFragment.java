@@ -29,6 +29,9 @@ import kylemeyers22.heroku.utils.HttpUtils;
 public class TeamFragment extends Fragment {
     private ListView teamListView;
 
+    private String apiToken;
+    private int userID;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup viewGroup, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.team_fragment, viewGroup, false);
@@ -41,14 +44,19 @@ public class TeamFragment extends Fragment {
 
         final Button getTeamButton = (Button) getView().findViewById(R.id.getTeamButton);
 
-        //webserver request url
-        new TeamFragment.LongOperation().execute(Endpoints.teamsAPI);
+        // Obtain API Authentication Token from LoginActivity's shared preferences
+        SharedPreferences sPref = getActivity().getSharedPreferences("LoginActivity", Context.MODE_PRIVATE);
+        apiToken = sPref.getString("apiToken", null);
+        userID = sPref.getInt("currentUser", -1);
+
+        // Populate teamList immediately on Activity creation
+        new TeamFragment.LongOperation().execute(Endpoints.userTeamsAPI(userID));
 
         getTeamButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //use AsyncTask execute method to prevent ANR problem
-                new TeamFragment.LongOperation().execute(Endpoints.teamsAPI);
+                // Refresh list of teams
+                new TeamFragment.LongOperation().execute(Endpoints.userTeamsAPI(userID));
             }
         });
     }
@@ -56,14 +64,8 @@ public class TeamFragment extends Fragment {
     public class LongOperation extends AsyncTask<String, Void, Void> {
 
         private String Content;
-        private String Error = null;
         private ProgressDialog Dialog = new ProgressDialog(getActivity());
         private ArrayAdapter<String> listAdapter;
-
-
-        // Obtain API Authentication Token from LoginActivity's shared preferences
-        SharedPreferences sPref = getActivity().getSharedPreferences("LoginActivity", Context.MODE_PRIVATE);
-        final String apiToken = sPref.getString("apiToken", null);
 
         protected void onPreExecute() {
             //start progress dialog message

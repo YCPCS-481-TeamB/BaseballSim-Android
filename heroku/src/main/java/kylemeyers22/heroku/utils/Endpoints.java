@@ -20,6 +20,10 @@ public class Endpoints {
         return gamesAPI + Integer.toString(gameID) + "/events/next/";
     }
 
+    public static String userTeamsAPI(int userID) {
+        return usersAPI + Integer.toString(userID) + "/teams";
+    }
+
     public static String approvalSetStatusAPI(int approvalID) {
         return approvalAPI + Integer.toString(approvalID) + "/status";
     }

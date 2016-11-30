@@ -60,6 +60,7 @@ public class LoginActivity extends AppCompatActivity {
         private String uname;
         private String pword;
         private String authToken;
+        private int userID;
 
         private JSONObject loginJson;
         private boolean loginSuccess = false;
@@ -86,6 +87,7 @@ public class LoginActivity extends AppCompatActivity {
                 props.put("Content-Type", "application/x-www-form-urlencoded");
 
                 authToken = HttpUtils.doPost(urls[0], props, authParams);
+                userID = HttpUtils.getCurrentUserID(uname);
             } catch (FileNotFoundException exc) {
                 // Occurs if the service is unavailable for some reason
                 serviceFailure = true;
@@ -142,7 +144,7 @@ public class LoginActivity extends AppCompatActivity {
                         // Auth succeeded, extract and save apiToken
                         loginSuccess = true;
                         editor.putString("apiToken", loginJson.getString("token"));
-                        editor.putString("currentUser", uname);
+                        editor.putInt("currentUser", userID);
                         editor.apply();
                     }
                 } catch (JSONException jexc) {

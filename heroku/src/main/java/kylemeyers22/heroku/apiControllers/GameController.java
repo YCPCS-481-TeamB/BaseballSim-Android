@@ -38,17 +38,14 @@ public class GameController {
     }
 
     public Game createGame(int teamOneID, int teamTwoID) throws IOException, JSONException {
-        System.out.println("IN createGame: Teams given - " + teamOneID + " | " + teamTwoID);
         Map<String, String> requestParams = initMap();
         // field_id and league_id currently hardcoded.
         // TODO: Provide handling for parameterized field and league ID
         String requestBody = "team1_id=" + Integer.toString(teamOneID) +
                              "&team2_id=" + Integer.toString(teamTwoID) +
                              "&field_id=0" + "&league_id=0";
-        System.out.println("Sending: " + requestBody);
 
         String gameResponse = HttpUtils.doPost(Endpoints.gamesAPI, requestParams, requestBody);
-        System.out.println("IN createGame: " + gameResponse);
 
         return gameFromContent(gameResponse);
     }

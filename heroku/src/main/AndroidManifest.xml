@@ -6,7 +6,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/baseball_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -33,7 +33,7 @@
             android:label="Leagues of Baseballsim" />
 
         <!-- BaseballSim Teams -->
-        <activity
+        <fragment
             android:name=".TeamFragment"
             android:label="Teams of Baseballsim" />
 
@@ -43,10 +43,10 @@
             android:label="Schedules of Baseballsim" />
 
         <!-- BaseballSim Game -->
-        <activity
+        <fragment
             android:name=".GameFragment"
             android:label="Games of Baseballsim" />
-        <activity
+        <fragment
             android:name=".PlayerFragment"
             android:label="Main Baseballsim Display" />
         <activity android:name=".MainTabbedActivity" />

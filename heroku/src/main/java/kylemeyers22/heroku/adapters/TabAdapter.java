@@ -11,10 +11,6 @@ import kylemeyers22.heroku.TeamFragment;
 
 public class TabAdapter extends FragmentStatePagerAdapter {
     private int numTabs;
-    private PlayerFragment playerFrag;
-    private TeamFragment teamFrag;
-    private GameFragment gameFrag;
-    private ApprovalsFragment approveFrag;
 
     public TabAdapter(FragmentManager fragMan, int numberTabs) {
         super(fragMan);

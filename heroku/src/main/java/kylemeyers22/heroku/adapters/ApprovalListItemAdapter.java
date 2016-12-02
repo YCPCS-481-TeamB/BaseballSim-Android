@@ -14,6 +14,7 @@ import android.widget.TextView;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import kylemeyers22.heroku.ApprovalsFragment;
 import kylemeyers22.heroku.R;
 import kylemeyers22.heroku.apiControllers.ApprovalController;
 import kylemeyers22.heroku.apiObjects.Approval;
@@ -31,8 +32,6 @@ public class ApprovalListItemAdapter extends ArrayAdapter<Approval> {
     @NonNull
     public View getView(final int position, View convertView, @NonNull ViewGroup parent) {
         View convert = convertView;
-//        System.out.println("IN APPROVAL ADAPTER GETVIEW");
-//        System.out.println(approvalList.toString());
 
         if (convert == null) {
             LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -51,7 +50,7 @@ public class ApprovalListItemAdapter extends ArrayAdapter<Approval> {
             approvalStatus.setText(current.getStatus());
             approvalDate.setText(current.getDate());
 
-            System.out.println("Current approval ID: " + current.getId());
+//            System.out.println("Current approval ID: " + current.getId());
         }
 
         convert.setOnClickListener(new View.OnClickListener() {

@@ -29,6 +29,7 @@ public class ApprovalsFragment extends Fragment {
     private ListView approvalListView;
 
     private String apiToken;
+    private int userID;
 
     @Override
     public void setUserVisibleHint(boolean isVisible) {
@@ -36,6 +37,8 @@ public class ApprovalsFragment extends Fragment {
 
         if (this.isVisible()) {
             // Call check for new approvals
+//            new ApprovalOperation().execute(Endpoints.userApprovalsAPI(userID));
+            new ApprovalOperation().execute(Endpoints.approvalAPI);
         }
     }
 
@@ -50,8 +53,9 @@ public class ApprovalsFragment extends Fragment {
         approvalListView = (ListView) getView().findViewById(R.id.approvalList);
         SharedPreferences sPref = getActivity().getSharedPreferences("LoginActivity", Context.MODE_PRIVATE);
         apiToken = sPref.getString("apiToken", null);
-        int userID = sPref.getInt("currentUser", -1);
+        userID = sPref.getInt("currentUser", -1);
 
+//        new ApprovalOperation().execute(Endpoints.userApprovalsAPI(userID));
         new ApprovalOperation().execute(Endpoints.approvalAPI);
     }
 
@@ -62,8 +66,8 @@ public class ApprovalsFragment extends Fragment {
         private ApprovalListItemAdapter approvalAdapter;
 
         protected void onPreExecute() {
-            Dialog.setMessage("Refreshing...");
-            Dialog.show();
+//            Dialog.setMessage("Refreshing...");
+//            Dialog.show();
         }
 
         protected Void doInBackground(String... urls) {
@@ -79,9 +83,10 @@ public class ApprovalsFragment extends Fragment {
         }
 
         protected void onPostExecute(Void unused) {
-            Dialog.dismiss();
+//            Dialog.dismiss();
 
             ArrayList<Approval> approvalItems = new ArrayList<>();
+            System.out.println("In Approval Frag: " + Content);
 
             try {
                 JSONObject jObj = new JSONObject(Content);
@@ -100,7 +105,10 @@ public class ApprovalsFragment extends Fragment {
                 jexc.printStackTrace();
             }
 
-            approvalAdapter = new ApprovalListItemAdapter(getActivity(), R.layout.approvalrow, approvalItems);
+            approvalAdapter = new ApprovalListItemAdapter(
+                    getActivity(),
+                    R.layout.approvalrow,
+                    approvalItems);
             approvalListView.setAdapter(approvalAdapter);
         }
     }

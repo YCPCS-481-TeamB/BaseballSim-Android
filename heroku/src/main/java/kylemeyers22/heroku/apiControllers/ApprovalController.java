@@ -1,5 +1,7 @@
 package kylemeyers22.heroku.apiControllers;
 
+import android.os.AsyncTask;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,23 +29,6 @@ public class ApprovalController {
         return initParams;
     }
 
-//    private String userForID(int userId) throws IOException, JSONException {
-//        String userList = HttpUtils.doGet(Endpoints.usersAPI, null);
-//        JSONObject userJson = new JSONObject(userList);
-//        JSONArray userArray = userJson.getJSONArray("users");
-//
-//        // Return user that matches the given ID
-//        for (int i = 0; i < userArray.length(); ++i) {
-//            JSONObject currentUser = userArray.getJSONObject(i);
-//            if (currentUser.getInt("id") == userId) {
-//                return currentUser.getString("username");
-//            }
-//        }
-//
-//        // No user found (should never happen)
-//        return null;
-//    }
-
     private Approval approvalFromContent(String approveContent) throws IOException, JSONException {
         JSONObject approveJson = new JSONObject(approveContent);
 
@@ -53,13 +38,28 @@ public class ApprovalController {
     }
 
     public void approveRequest(Approval toApprove) throws IOException {
-        Map<String, String> requestParams = initMap();
-        String approveBody = "status=approved";
+        new ApproveRequest().execute(toApprove);
+    }
 
-        if (!toApprove.getStatus().equals("approved")) {
-            HttpUtils.doPost(Endpoints.approvalSetStatusAPI(toApprove.getId()),
-                                                            requestParams,
-                                                            approveBody);
+    private class ApproveRequest extends AsyncTask<Approval, Void, Void> {
+        private Map<String, String> requestParams = initMap();
+        private String approveBody = "status=approved";
+
+        protected Void doInBackground(Approval... approvals) {
+            Approval toApprove = approvals[0];
+
+            try {
+                if (!toApprove.getStatus().equals("approved")) {
+                    HttpUtils.doPost(Endpoints.approvalSetStatusAPI(
+                            toApprove.getId()),
+                            requestParams,
+                            approveBody);
+                }
+            } catch (IOException iexc) {
+                iexc.printStackTrace();
+            }
+
+            return null;
         }
     }
 }

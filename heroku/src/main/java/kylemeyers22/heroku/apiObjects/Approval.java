@@ -51,6 +51,16 @@ public class Approval {
         this.status = newStatus;
     }
 
+    public int compareTo(Approval app) {
+        if (approvalId > app.getId()) {
+            return 1;
+        } else if (approvalId < app.getId()) {
+            return 0;
+        } else {
+            return -1;
+        }
+    }
+
     private void userForID(final int userID) {
 
         new Thread(new Runnable() {

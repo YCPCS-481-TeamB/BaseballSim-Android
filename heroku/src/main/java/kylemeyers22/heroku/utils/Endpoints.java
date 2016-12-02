@@ -10,6 +10,9 @@ public class Endpoints {
     public static final String playersAPI = rootAPI + "players/";
     public static final String teamsAPI = rootAPI + "teams/";
     public static final String gamesAPI = rootAPI + "games/";
+    public static final String fieldsAPI = rootAPI + "fields/";
+    public static final String leaguesAPI = rootAPI + "leagues/";
+    public static final String schedulesAPI = rootAPI + "schedules/";
     public static final String approvalAPI = rootAPI + "approvals/";
 
     public static String gameStartAPI(int gameID) {

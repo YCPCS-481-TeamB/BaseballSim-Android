@@ -27,29 +27,29 @@ public class ApprovalController {
         return initParams;
     }
 
-    private String userForID(int userId) throws IOException, JSONException {
-        String userList = HttpUtils.doGet(Endpoints.usersAPI, null);
-        JSONObject userJson = new JSONObject(userList);
-        JSONArray userArray = userJson.getJSONArray("users");
-
-        // Return user that matches the given ID
-        for (int i = 0; i < userArray.length(); ++i) {
-            JSONObject currentUser = userArray.getJSONObject(i);
-            if (currentUser.getInt("id") == userId) {
-                return currentUser.getString("username");
-            }
-        }
-
-        // No user found (should never happen)
-        return null;
-    }
+//    private String userForID(int userId) throws IOException, JSONException {
+//        String userList = HttpUtils.doGet(Endpoints.usersAPI, null);
+//        JSONObject userJson = new JSONObject(userList);
+//        JSONArray userArray = userJson.getJSONArray("users");
+//
+//        // Return user that matches the given ID
+//        for (int i = 0; i < userArray.length(); ++i) {
+//            JSONObject currentUser = userArray.getJSONObject(i);
+//            if (currentUser.getInt("id") == userId) {
+//                return currentUser.getString("username");
+//            }
+//        }
+//
+//        // No user found (should never happen)
+//        return null;
+//    }
 
     private Approval approvalFromContent(String approveContent) throws IOException, JSONException {
         JSONObject approveJson = new JSONObject(approveContent);
 
         return new Approval(approveJson.getInt("id"), approveJson.getString("approved"),
-                            userForID(approveJson.getInt("approver_user_id")),
-                            approveJson.getString("date"));
+                            approveJson.getString("date"),
+                            approveJson.getInt("approver_user_id"));
     }
 
     public void approveRequest(Approval toApprove) throws IOException {

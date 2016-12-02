@@ -28,6 +28,10 @@ public class Endpoints {
         return usersAPI + Integer.toString(userID) + "/games";
     }
 
+    public static String userApprovalsAPI(int userID) {
+        return approvalAPI + "user/" + Integer.toString(userID);
+    }
+
     public static String approvalSetStatusAPI(int approvalID) {
         return approvalAPI + Integer.toString(approvalID) + "/status";
     }

@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:text="@string/approvals"
+        android:maxLines="1"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"/>
 
     <!-- Approvals List -->

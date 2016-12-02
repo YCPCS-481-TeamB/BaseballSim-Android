@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import kylemeyers22.heroku.utils.Endpoints;
-import kylemeyers22.heroku.utils.TeamVariables;
 
 public class GameEventsActivity extends AppCompatActivity{
 
@@ -22,7 +21,6 @@ public class GameEventsActivity extends AppCompatActivity{
     {
         System.out.println("Creating events for the game");
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.create_game);
 
 
       //  teamOneId = TeamVariables.getTeamOneId();

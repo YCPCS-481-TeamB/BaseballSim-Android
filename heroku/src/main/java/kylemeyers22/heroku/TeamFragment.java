@@ -89,10 +89,6 @@ public class TeamFragment extends Fragment {
             //close progress dialog
             Dialog.dismiss();
 
-            //Receive JSON response
-            System.out.println("#---- IN onPostExecute ----#");
-            System.out.println(Content);
-
             ArrayList<String> teamList = new ArrayList<>();
             ArrayList<Team> teamObjs = new ArrayList<>();
 

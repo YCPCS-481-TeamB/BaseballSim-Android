@@ -52,7 +52,6 @@ public class ApprovalsFragment extends Fragment {
         apiToken = sPref.getString("apiToken", null);
         int userID = sPref.getInt("currentUser", -1);
 
-//        new ApprovalOperation().execute(Endpoints.userApprovalsAPI(userID));
         new ApprovalOperation().execute(Endpoints.approvalAPI);
     }
 
@@ -90,7 +89,6 @@ public class ApprovalsFragment extends Fragment {
                 JSONArray approvalArray = jObj.getJSONArray("approvals");
                 for (int i = 0; i < approvalArray.length(); ++i) {
                     JSONObject item = approvalArray.getJSONObject(i);
-//                    System.out.println("IN APPROVAL FRAGMENT: " + item.toString());
                     approvalItems.add(new Approval(
                             item.getInt("id"),
                             item.getString("approved"),

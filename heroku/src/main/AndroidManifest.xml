@@ -51,7 +51,6 @@
             android:label="Main Baseballsim Display" />
         <activity android:name=".MainTabbedActivity" />
         <activity android:name=".CreateUserActivity"/>
-        <activity android:name=".CreateNewGameActivity"/>
         <activity android:name=".GameEventsActivity">
         </activity>
 

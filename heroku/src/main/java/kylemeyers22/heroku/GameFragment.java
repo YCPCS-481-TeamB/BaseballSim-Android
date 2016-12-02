@@ -93,8 +93,8 @@ public class GameFragment extends Fragment {
             public void onClick(View v) {
                 Team teamOne = (Team) teamOneSpin.getSelectedItem();
                 Team teamTwo = (Team) teamTwoSpin.getSelectedItem();
-                System.out.println("Team 1: " + teamOne.toString() + " | " + teamOne.getTeamID());
-                System.out.println("Team 2: " + teamTwo.toString() + " | " + teamTwo.getTeamID());
+//                System.out.println("Team 1: " + teamOne.toString() + " | " + teamOne.getTeamID());
+//                System.out.println("Team 2: " + teamTwo.toString() + " | " + teamTwo.getTeamID());
 
                 new StartGameTask().execute(teamOne.getTeamID(), teamTwo.getTeamID());
                 startGame.dismiss();

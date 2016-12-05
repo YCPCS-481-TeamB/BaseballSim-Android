@@ -37,8 +37,7 @@ public class ApprovalsFragment extends Fragment {
 
         if (this.isVisible()) {
             // Call check for new approvals
-//            new ApprovalOperation().execute(Endpoints.userApprovalsAPI(userID));
-            new ApprovalOperation().execute(Endpoints.approvalAPI);
+            new ApprovalOperation().execute(Endpoints.userPendingApprovalsAPI);
         }
     }
 
@@ -55,8 +54,7 @@ public class ApprovalsFragment extends Fragment {
         apiToken = sPref.getString("apiToken", null);
         userID = sPref.getInt("currentUser", -1);
 
-//        new ApprovalOperation().execute(Endpoints.userApprovalsAPI(userID));
-        new ApprovalOperation().execute(Endpoints.approvalAPI);
+        new ApprovalOperation().execute(Endpoints.userPendingApprovalsAPI);
     }
 
     private class ApprovalOperation extends AsyncTask<String, Void, Void> {

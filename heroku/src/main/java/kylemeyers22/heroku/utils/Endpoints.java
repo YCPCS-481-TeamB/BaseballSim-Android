@@ -13,7 +13,9 @@ public class Endpoints {
     public static final String fieldsAPI = rootAPI + "fields/";
     public static final String leaguesAPI = rootAPI + "leagues/";
     public static final String schedulesAPI = rootAPI + "schedules/";
-    public static final String approvalAPI = rootAPI + "approvals/";
+
+    private static final String approvalAPI = rootAPI + "approvals/";
+    public static final String userPendingApprovalsAPI = approvalAPI + "user/pending";
 
     public static String gameStartAPI(int gameID) {
         return gamesAPI + Integer.toString(gameID) + "/start/";
@@ -29,10 +31,6 @@ public class Endpoints {
 
     public static String userGamesAPI(int userID) {
         return usersAPI + Integer.toString(userID) + "/games";
-    }
-
-    public static String userApprovalsAPI(int userID) {
-        return approvalAPI + "user/" + Integer.toString(userID);
     }
 
     public static String approvalSetStatusAPI(int approvalID) {

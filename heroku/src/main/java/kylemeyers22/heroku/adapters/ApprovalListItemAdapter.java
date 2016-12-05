@@ -67,6 +67,9 @@ public class ApprovalListItemAdapter extends ArrayAdapter<Approval> {
                                 // Approve this approval request
                                 try {
                                     approveCont.approveRequest(current);
+                                    // Remove the newly approved request
+                                    approvalList.remove(current);
+                                    notifyDataSetChanged();
                                 } catch (IOException iexc) {
                                     iexc.getCause();
                                 }

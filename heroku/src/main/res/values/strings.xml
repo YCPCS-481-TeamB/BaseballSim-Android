@@ -18,9 +18,9 @@
     <string name="game_history">Game History</string>
     <string name="game_button">Start New Game</string>
     <string name="team_button">Refresh Teams</string>
-    <string name="team_one">Team One</string>
-    <string name="team_two">Team Two</string>
-    <string name="start">Fun Go!</string>
+    <string name="team_one">Team One (Your Team)</string>
+    <string name="team_two">Team Two (Opposing Team)</string>
+    <string name="start">Start Game!</string>
     <string name="game_header">Game %1$d</string>
     <string name="approvals">Approvals</string>
     <string name="approval_header">Approval number %1$d</string>

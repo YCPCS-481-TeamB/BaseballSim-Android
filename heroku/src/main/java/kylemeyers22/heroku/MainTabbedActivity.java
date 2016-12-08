@@ -13,7 +13,8 @@ import kylemeyers22.heroku.apiObjects.Team;
 import kylemeyers22.heroku.utils.Constants;
 
 public class MainTabbedActivity extends AppCompatActivity {
-    public static ArrayList<Team> teamList;
+    public static ArrayList<Team> homeTeamList;
+    public static ArrayList<Team> opposeTeamList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

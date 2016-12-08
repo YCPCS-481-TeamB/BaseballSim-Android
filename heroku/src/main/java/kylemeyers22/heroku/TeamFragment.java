@@ -49,8 +49,11 @@ public class TeamFragment extends Fragment {
         apiToken = sPref.getString("apiToken", null);
         userID = sPref.getInt("currentUser", -1);
 
-        // Populate teamList immediately on Activity creation
-        new TeamFragment.LongOperation().execute(Endpoints.userTeamsAPI(userID));
+        // Populate homeTeamList immediately on Activity creation
+        new TeamFragment.LongOperation().execute(
+                Endpoints.userTeamsAPI(userID),
+                Endpoints.teamsAPI
+        );
 
         getTeamButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,7 +66,8 @@ public class TeamFragment extends Fragment {
 
     public class LongOperation extends AsyncTask<String, Void, Void> {
 
-        private String Content;
+        private String userTeams;
+        private String allTeams;
         private ProgressDialog Dialog = new ProgressDialog(getActivity());
         private ArrayAdapter<String> listAdapter;
 
@@ -78,7 +82,8 @@ public class TeamFragment extends Fragment {
                 Map<String, String> props = new HashMap<>();
                 props.put("x-access-token", apiToken);
 
-                Content = HttpUtils.doGet(urls[0], props);
+                userTeams = HttpUtils.doGet(urls[0], props);
+                allTeams = HttpUtils.doGet(urls[1], props);
             } catch (IOException iexc) {
                 iexc.printStackTrace();
             }
@@ -89,26 +94,45 @@ public class TeamFragment extends Fragment {
             //close progress dialog
             Dialog.dismiss();
 
-            ArrayList<String> teamList = new ArrayList<>();
-            ArrayList<Team> teamObjs = new ArrayList<>();
+            ArrayList<String> homeTeams = new ArrayList<>();
+            ArrayList<Team> homeObjs = new ArrayList<>();
+            ArrayList<Team> allObjs = new ArrayList<>();
+            ArrayList<Team> opposeObjs = new ArrayList<>();
 
             try {
-                JSONObject jObj = new JSONObject(Content);
+                // Parse current user's teams
+                JSONObject jObj = new JSONObject(userTeams);
                 JSONArray teamsArray = jObj.getJSONArray("teams");
                 for (int i = 0; i < teamsArray.length(); ++i) {
                     JSONObject item = teamsArray.getJSONObject(i);
-                    teamList.add(item.getString("name"));
-                    teamObjs.add(new Team(item.getInt("id"), item.getString("name")));
+                    // Save team name strings for displaying in layout
+                    homeTeams.add(item.getString("name"));
+                    homeObjs.add(new Team(item.getInt("id"), item.getString("name")));
+                }
+                // Parse all teams
+                jObj = new JSONObject(allTeams);
+                teamsArray = jObj.getJSONArray("teams");
+                for (int i = 0; i < teamsArray.length(); ++i) {
+                    JSONObject item = teamsArray.getJSONObject(i);
+                    allObjs.add(new Team(item.getInt("id"), item.getString("name")));
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
 
-            // Set list of teams in MainTabbedActivity for use in GameFragment
-            MainTabbedActivity.teamList = teamObjs;
+            // Filter user teams from all teams
+            for (Team current : allObjs) {
+                if (!homeObjs.contains(current)) {
+                    opposeObjs.add(current);
+                }
+            }
 
-            //System.out.println(teamList.size());
-            listAdapter = new ArrayAdapter<>(getActivity(), R.layout.listrow, teamList);
+            // Set list of teams in MainTabbedActivity for use in GameFragment
+            MainTabbedActivity.homeTeamList = homeObjs;
+            MainTabbedActivity.opposeTeamList = opposeObjs;
+
+            //System.out.println(homeTeamList.size());
+            listAdapter = new ArrayAdapter<>(getActivity(), R.layout.listrow, homeTeams);
             teamListView.setAdapter(listAdapter);
         }
     }

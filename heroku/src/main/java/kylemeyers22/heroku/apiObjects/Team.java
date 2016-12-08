@@ -16,7 +16,26 @@ public class Team implements Serializable {
         return this.teamID;
     }
 
+    public String getName() {
+        return this.teamName;
+    }
+
+    @Override
     public String toString() {
         return this.teamName;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+        else if ((other == null) || (other.getClass() != this.getClass())) {
+            return false;
+        }
+
+        Team compareTeam = (Team) other;
+        return (this.getName().equals(compareTeam.getName()) &&
+                this.getTeamID() == compareTeam.getTeamID());
     }
 }

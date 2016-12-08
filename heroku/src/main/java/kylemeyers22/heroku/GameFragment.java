@@ -1,7 +1,6 @@
 package kylemeyers22.heroku;
 
 import android.app.Dialog;
-import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -66,25 +65,35 @@ public class GameFragment extends Fragment {
         });
     }
 
+    /**
+     * Popup form for starting a new game. Team 1 is chosen from the current user's list
+     * of teams, Team 2 is chosen from all other available teams.
+     */
     private void createStartGameForm() {
         final Dialog startGame = new Dialog(this.getContext());
         startGame.setContentView(R.layout.start_game);
         startGame.setCancelable(true);
         startGame.setCanceledOnTouchOutside(false);
 
-        ArrayList<Team> teamObjs = MainTabbedActivity.teamList;
+        ArrayList<Team> homeTeams = MainTabbedActivity.homeTeamList;
+        ArrayList<Team> opposeTeams = MainTabbedActivity.opposeTeamList;
 
         Button gameStart = (Button) startGame.findViewById(R.id.startGameButton);
         final Spinner teamOneSpin = (Spinner) startGame.findViewById(R.id.team_one);
         final Spinner teamTwoSpin = (Spinner) startGame.findViewById(R.id.team_two);
-        ArrayAdapter<Team> adapter = new ArrayAdapter<>(
+        ArrayAdapter<Team> adapterHome = new ArrayAdapter<>(
                 this.getContext(),
                 android.R.layout.simple_spinner_item,
-                teamObjs
+                homeTeams
+        );
+        ArrayAdapter<Team> adapterOppose = new ArrayAdapter<Team>(
+                this.getContext(),
+                android.R.layout.simple_spinner_item,
+                opposeTeams
         );
 
-        teamOneSpin.setAdapter(adapter);
-        teamTwoSpin.setAdapter(adapter);
+        teamOneSpin.setAdapter(adapterHome);
+        teamTwoSpin.setAdapter(adapterOppose);
 
         startGame.show();
 
@@ -93,14 +102,11 @@ public class GameFragment extends Fragment {
             public void onClick(View v) {
                 Team teamOne = (Team) teamOneSpin.getSelectedItem();
                 Team teamTwo = (Team) teamTwoSpin.getSelectedItem();
-//                System.out.println("Team 1: " + teamOne.toString() + " | " + teamOne.getTeamID());
-//                System.out.println("Team 2: " + teamTwo.toString() + " | " + teamTwo.getTeamID());
 
                 new StartGameTask().execute(teamOne.getTeamID(), teamTwo.getTeamID());
                 startGame.dismiss();
             }
         });
-
     }
 
     private class LongOperation extends AsyncTask<String, Void, Void> {

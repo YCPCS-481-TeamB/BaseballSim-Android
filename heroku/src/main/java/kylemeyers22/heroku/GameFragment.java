@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,6 +53,7 @@ public class GameFragment extends Fragment {
         userID = sPref.getInt("currentUser", -1);
 
         final Button getGameButton = (Button) getView().findViewById(R.id.getGameButton);
+        final Button gameRefresh = (Button) getView().findViewById(R.id.gameRefreshButton);
 
         // Fetch current history of games
         new GameFragment.LongOperation().execute(Endpoints.userGamesAPI(userID));
@@ -61,6 +63,14 @@ public class GameFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 createStartGameForm();
+            }
+        });
+
+        // Refresh game list
+        gameRefresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new GameFragment.LongOperation().execute(Endpoints.userGamesAPI(userID));
             }
         });
     }
@@ -180,9 +190,17 @@ public class GameFragment extends Fragment {
         }
 
         protected void onPostExecute(Void unused) {
-            System.out.println("New game created: " + newGame.getDateCreated() + " | " + newGame.getGameId());
-            // Refresh game list
-            new LongOperation().execute(Endpoints.userGamesAPI(userID));
+            if (newGame == null) {
+                AlertDialog.Builder failureAlert = new AlertDialog.Builder(getContext());
+                failureAlert.setTitle("Game Failed");
+                failureAlert.setMessage("Could not create game using those teams! Please try again");
+                failureAlert.show();
+                failureAlert.setCancelable(true);
+            } else {
+                System.out.println("New game created: " + newGame.getDateCreated() + " | " + newGame.getGameId());
+                // Refresh game list
+                new LongOperation().execute(Endpoints.userGamesAPI(userID));
+            }
         }
     }
 }

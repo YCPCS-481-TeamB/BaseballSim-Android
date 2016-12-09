@@ -11,7 +11,7 @@
     <TextView
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:text="@string/game_history"
+        android:text="@string/game_list_header"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"/>
 
     <!-- Games List -->
@@ -27,13 +27,24 @@
         android:layout_height="0dp"
         android:layout_weight="0.10"
         android:gravity="bottom"
-        android:orientation="vertical">
+        android:orientation="horizontal">
 
+        <Button
+            android:id="@+id/gameRefreshButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:text="@string/refresh"
+            android:textAllCaps="false"/>
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"/>
         <Button
             android:id="@+id/getGameButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_gravity="end"
             android:textAllCaps="false"
             android:text="@string/game_button"/>
 

@@ -15,7 +15,7 @@
     <string name="required">Required</string>
     <string name="optional">Optional</string>
     <string name="account_info">Enter info for account</string>
-    <string name="game_history">Game History</string>
+    <string name="game_list_header">Available Games</string>
     <string name="game_button">Start New Game</string>
     <string name="team_button">Refresh Teams</string>
     <string name="team_one">Team One (Your Team)</string>
@@ -24,4 +24,5 @@
     <string name="game_header">Game %1$d</string>
     <string name="approvals">Approvals</string>
     <string name="approval_header">Approval number %1$d</string>
+    <string name="refresh">Refresh</string>
 </resources>

@@ -1,11 +1,15 @@
 package kylemeyers22.heroku.apiControllers;
 
+import android.os.AsyncTask;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 import kylemeyers22.heroku.apiObjects.Game;
 import kylemeyers22.heroku.utils.HttpUtils;
@@ -14,6 +18,8 @@ import kylemeyers22.heroku.utils.Endpoints;
 public class GameController {
 
     private String token;
+    private boolean status;
+    private boolean isApproved;
 
     public GameController(String token) {
         this.token = token;
@@ -44,14 +50,95 @@ public class GameController {
                              "&field_id=0" + "&league_id=0";
 
         String gameResponse = HttpUtils.doPost(Endpoints.gamesAPI, requestParams, requestBody);
+        if (!new JSONObject(gameResponse).getBoolean("success")) {
+            return null;
+        }
 
         return gameFromContent(gameResponse);
     }
 
-    public void startGame(Game toStart) throws IOException {
-        Map<String, String> requestParams = initMap();
+    public boolean isGameApproved(Game toCheck) throws IOException, JSONException {
+        try {
+            // Wait for background task to complete
+            new IsGameApproved().execute(toCheck).get();
+        } catch (ExecutionException | InterruptedException exec) {
+            exec.printStackTrace();
+        }
+        return isApproved;
+    }
 
-        HttpUtils.doPost(Endpoints.gameStartAPI(toStart.getGameId()), requestParams, null);
+    private class IsGameApproved extends AsyncTask<Game, Void, Void> {
+        private String reply;
+
+        protected Void doInBackground(Game... games) {
+            Map<String, String> requestParams = initMap();
+
+            try {
+                reply = HttpUtils.doGet(
+                        Endpoints.gameIsApprovedAPI(games[0].getGameId()), requestParams
+                );
+                JSONArray gameApproval = new JSONObject(reply).getJSONArray("approvals");
+                // Should only ever be a single approval in this array. Failing that,
+                // slot zero should be the most recent.
+                JSONObject gameStatus = gameApproval.getJSONObject(0);
+
+                // True if "approved" value is "approved", False otherwise
+                isApproved = gameStatus.getString("approved").equals("approved");
+            } catch (IOException | JSONException iexc) {
+                iexc.printStackTrace();
+            }
+            return null;
+        }
+    }
+
+    public boolean isGameStarted(Game toCheck) throws IOException, JSONException {
+        try {
+            // Wait for background task to finish
+            new IsGameStarted().execute(toCheck).get();
+        } catch (ExecutionException | InterruptedException exec) {
+            exec.printStackTrace();
+        }
+
+        return status;
+    }
+
+    private class IsGameStarted extends AsyncTask<Game, Void, Void> {
+        private String reply;
+
+        protected Void doInBackground(Game... games) {
+            Map<String, String> requestParams = initMap();
+
+            try {
+                reply = HttpUtils.doGet(
+                        Endpoints.gameEventsAllAPI(games[0].getGameId()), requestParams
+                );
+                JSONArray gameEvents = new JSONObject(reply).getJSONArray("events");
+
+                status = (gameEvents.length() >= 1 &&
+                          gameEvents.getJSONObject(0).getString("type").equals("start"));
+            } catch (IOException | JSONException iexc) {
+                iexc.printStackTrace();
+            }
+            return null;
+        }
+    }
+
+    public void startGame(Game toStart) throws IOException {
+        new StartGame().execute(toStart);
+    }
+
+    private class StartGame extends AsyncTask<Game, Void, Void> {
+        protected Void doInBackground(Game... games) {
+            Map<String, String> requestParams = initMap();
+
+            try {
+                HttpUtils.doPost(Endpoints.gameStartAPI(games[0].getGameId()), requestParams, "");
+            } catch (IOException iexc) {
+                System.out.print("Could not start game!");
+                iexc.printStackTrace();
+            }
+            return null;
+        }
     }
 
     public void getNextEvent(Game toAdvance, int playerOneID, int playerTwoID) throws IOException {

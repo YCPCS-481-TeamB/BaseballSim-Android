@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="kylemeyers22.heroku">
-    //allows access to the internet for the backend
+    <!-- allows access to the internet for the backend -->
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -14,46 +14,33 @@
         <!-- BaseballSim Login -->
         <activity
             android:name=".LoginActivity"
-            android:label="Login to Baseballsim">
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
+        <!-- Activity for Main View (after Login) -->
+        <activity android:name=".MainTabbedActivity"/>
+
+        <!-- These activities not currently used! -->
         <!-- BaseballSim Field -->
-        <activity
-            android:name=".FieldActivity"
-            android:label="Fields of Baseballsim" />
+        <!--<activity-->
+            <!--android:name=".FieldActivity"-->
+            <!--android:label="Fields of Baseballsim" />-->
 
         <!-- BaseballSim League -->
-        <activity
-            android:name=".LeagueActivity"
-            android:label="Leagues of Baseballsim" />
-
-        <!-- BaseballSim Teams -->
-        <fragment
-            android:name=".TeamFragment"
-            android:label="Teams of Baseballsim" />
+        <!--<activity-->
+            <!--android:name=".LeagueActivity"-->
+            <!--android:label="Leagues of Baseballsim" />-->
 
         <!-- BaseballSim Schedule -->
-        <activity
-            android:name=".ScheduleActivity"
-            android:label="Schedules of Baseballsim" />
+        <!--<activity-->
+            <!--android:name=".ScheduleActivity"-->
+            <!--android:label="Schedules of Baseballsim" />-->
 
-        <!-- BaseballSim Game -->
-        <fragment
-            android:name=".GameFragment"
-            android:label="Games of Baseballsim" />
-        <fragment
-            android:name=".PlayerFragment"
-            android:label="Main Baseballsim Display" />
-        <activity android:name=".MainTabbedActivity" />
-        <activity android:name=".CreateUserActivity"/>
-        <activity android:name=".GameEventsActivity">
-        </activity>
-
+        <!--<activity android:name=".CreateUserActivity"/>-->
+        <!--<activity android:name=".GameEventsActivity"/>-->
     </application>
-
 </manifest>

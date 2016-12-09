@@ -12,49 +12,6 @@
     android:background="@color/semiTransparent"
     tools:context=".PlayerFragment">
 
-    <!--&lt;!&ndash; Top Label &ndash;&gt;-->
-    <!--<TextView-->
-        <!--android:text="Click Button to show the Players from the backend"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:id="@+id/allPlayers"/>-->
-
-    <!--&lt;!&ndash; FirstName Label and Viewfield&ndash;&gt;-->
-    <!--<TextView-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:text="First Name"-->
-        <!--android:gravity="start"-->
-        <!--android:id="@+id/playerFirstNameLabel"/>-->
-    <!--<TextView-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:text=""-->
-        <!--android:gravity="start"-->
-        <!--android:id="@+id/playerFirstName"/>-->
-
-    <!--&lt;!&ndash; LastName Label and Viewfield&ndash;&gt;-->
-    <!--<TextView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="Last Name"-->
-        <!--android:gravity="start"-->
-        <!--android:id="@+id/playerLastNameLabel"/>-->
-    <!--<TextView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text=""-->
-        <!--android:gravity="start"-->
-        <!--android:id="@+id/playerLastName"/>-->
-
-    <!--&lt;!&ndash; Placeholder textview (?) &ndash;&gt;-->
-    <!--<TextView-->
-        <!--android:paddingTop="20dp"-->
-        <!--android:id="@+id/serverText"-->
-        <!--android:layout_width="fill_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text=""/>-->
-
     <!-- Players List -->
     <ListView
         android:id="@+id/playersList"
@@ -63,21 +20,21 @@
         android:layout_weight="1"/>
 
     <!-- Initiate Button -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.10"
-        android:gravity="bottom"
-        android:orientation="vertical">
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="0dp"-->
+        <!--android:layout_weight="0.10"-->
+        <!--android:gravity="bottom"-->
+        <!--android:orientation="vertical">-->
 
-        <Button
-            android:id="@+id/getPlayerButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textAllCaps="false"
-            android:text="@string/getPlayersButton"/>
+        <!--<Button-->
+            <!--android:id="@+id/getPlayerButton"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:textAllCaps="false"-->
+            <!--android:text="@string/getPlayersButton"/>-->
 
-    </LinearLayout>
+    <!--</LinearLayout>-->
 
 </LinearLayout>

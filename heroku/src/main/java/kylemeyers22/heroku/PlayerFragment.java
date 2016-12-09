@@ -39,14 +39,7 @@ public class PlayerFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         playerListView = (ListView) getView().findViewById(R.id.playersList);
 
-        final Button getPlayerButton = (Button) getView().findViewById(R.id.getPlayerButton);
-
-        getPlayerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new LongOperation().execute(Endpoints.playersAPI);
-            }
-        });
+        new LongOperation().execute(Endpoints.playersAPI);
     }
 
     private class LongOperation extends AsyncTask<String, Void, Void> {

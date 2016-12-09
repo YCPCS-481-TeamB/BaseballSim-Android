@@ -21,6 +21,8 @@
             </intent-filter>
         </activity>
 
+        <!-- Activity for Creating a User -->
+        <activity android:name=".CreateUserActivity"/>
         <!-- Activity for Main View (after Login) -->
         <activity android:name=".MainTabbedActivity"/>
 
@@ -40,7 +42,6 @@
             <!--android:name=".ScheduleActivity"-->
             <!--android:label="Schedules of Baseballsim" />-->
 
-        <!--<activity android:name=".CreateUserActivity"/>-->
         <!--<activity android:name=".GameEventsActivity"/>-->
     </application>
 </manifest>

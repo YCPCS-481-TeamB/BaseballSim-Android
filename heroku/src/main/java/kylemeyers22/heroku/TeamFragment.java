@@ -59,7 +59,10 @@ public class TeamFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // Refresh list of teams
-                new TeamFragment.LongOperation().execute(Endpoints.userTeamsAPI(userID));
+                new TeamFragment.LongOperation().execute(
+                        Endpoints.userTeamsAPI(userID),
+                        Endpoints.teamsAPI
+                );
             }
         });
     }

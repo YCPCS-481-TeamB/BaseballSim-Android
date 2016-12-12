@@ -28,6 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:textAllCaps="false"
+            android:textColor="@color/black"
             android:text="@string/team_button"/>
 
     </LinearLayout>

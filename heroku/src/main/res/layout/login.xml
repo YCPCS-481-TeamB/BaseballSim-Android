@@ -9,21 +9,40 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
-    android:background="@drawable/placeholder_field"
+    android:background="@drawable/placeholder_field_2"
     tools:context=".LoginActivity">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="100dp"
+        android:gravity="center"
+        android:layout_marginTop="85dp"
         android:textSize="34sp"
         android:typeface="monospace"
-        android:text="@string/welcome"/>
+        android:textColor="@color/white"
+        android:text="@string/welcome_pt1"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="34sp"
+        android:textColor="@color/white"
+        android:typeface="monospace"
+        android:text="@string/welcome_pt2"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginBottom="75dp"
+        android:textSize="34sp"
+        android:textColor="@color/white"
+        android:typeface="monospace"
+        android:text="@string/welcome_pt3"/>
 
     <!-- Username Input -->
     <TextView
         android:text="@string/username"
+        android:textColor="@color/white"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:labelFor="@+id/UsernameInput"/>
@@ -38,6 +57,7 @@
     <!-- Password Input -->
     <TextView
         android:text="@string/password"
+        android:textColor="@color/white"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:labelFor="@+id/PasswordInput"/>
@@ -61,6 +81,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
+            android:textColor="@color/black"
             android:id="@+id/AuthButton"/>
 
         <!-- New Account Button -->
@@ -69,6 +90,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
+            android:textColor="@color/black"
             android:id="@+id/NewUserButton"/>
     </FrameLayout>
 </LinearLayout>

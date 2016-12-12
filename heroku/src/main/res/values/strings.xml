@@ -11,7 +11,9 @@
     <string name="login">Login</string>
     <string name="create_login">Create and Login</string>
     <string name="new_user">Create an account</string>
-    <string name="welcome">Welcome to the BaseballSimulator</string>
+    <string name="welcome_pt1">Welcome to</string>
+    <string name="welcome_pt2">Baseball</string>
+    <string name="welcome_pt3">Simulator</string>
     <string name="required">Required</string>
     <string name="optional">Optional</string>
     <string name="account_info">Enter info for account</string>

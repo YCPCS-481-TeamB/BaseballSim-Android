@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:labelFor="@+id/team_one"
+        android:textColor="@color/black"
         android:text="@string/team_one"/>
     <Spinner
         android:layout_width="match_parent"
@@ -22,6 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:labelFor="@+id/team_two"
+        android:textColor="@color/black"
         android:text="@string/team_two"/>
     <Spinner
         android:layout_width="match_parent"
@@ -34,6 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:id="@+id/startGameButton"
+        android:textColor="@color/black"
         android:text="@string/start"/>
 
 </LinearLayout>

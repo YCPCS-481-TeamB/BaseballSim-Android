@@ -35,6 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="start"
             android:text="@string/refresh"
+            android:textColor="@color/black"
             android:textAllCaps="false"/>
         <Space
             android:layout_width="0dp"
@@ -46,6 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:textAllCaps="false"
+            android:textColor="@color/black"
             android:text="@string/game_button"/>
 
     </LinearLayout>

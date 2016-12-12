@@ -69,12 +69,8 @@ public class LoginActivity extends AppCompatActivity {
         SharedPreferences sharedPref = LoginActivity.this.getPreferences(Context.MODE_PRIVATE);
 
         protected void onPreExecute() {
-//            uname = usernameInput.getText().toString();
-//            pword = passwordInput.getText().toString();
-
-            // FOR DEBUGGING
-            uname = "bcoover";
-            pword = "devpass";
+            uname = usernameInput.getText().toString();
+            pword = passwordInput.getText().toString();
 
             Dialog.setMessage("Logging in...");
             Dialog.show();

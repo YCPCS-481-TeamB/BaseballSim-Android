@@ -1,5 +1,9 @@
 package kylemeyers22.heroku.utils;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -8,6 +12,7 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -100,5 +105,35 @@ public class HttpUtils {
         }
 
         return readResponse();
+    }
+
+    /**
+     * Workaround method to obtain API info pertaining to the current user.
+     *
+     * User ID is required for certain user-specific info, which is only obtainable from
+     * the "users" Endpoint, which is only intended to be used for debugging.
+     *
+     * @return The current user's ID, or -1 if it does not exist
+     * @throws IOException
+     */
+    public static int getCurrentUserID(String username) throws IOException {
+
+        String userContent = HttpUtils.doGet(Endpoints.usersAPI, new HashMap<String, String>());
+        try {
+            JSONObject userJson = new JSONObject(userContent);
+            JSONArray allUsers = userJson.getJSONArray("users");
+
+            for (int i = 0; i < allUsers.length(); ++i) {
+                JSONObject current = allUsers.getJSONObject(i);
+                if (current.getString("username").equals(username)) {
+                    return current.getInt("id");
+                }
+            }
+        } catch (JSONException jexc) {
+            jexc.getCause();
+        }
+
+        // Current user does not exist (should never happen)
+        return -1;
     }
 }

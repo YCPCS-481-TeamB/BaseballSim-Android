@@ -1,34 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-<!--
-    Team ID of the field
-    <TextView
-        android:text="Team Name: "
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-        android:id="@id/teamID"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/semiTransparent"
+    tools:context="kylemeyers22.heroku.TeamFragment">
 
-
-    <TextView
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:text=""
-        android:gravity="left"/>
-    android:id="@id/teamName"
-        android:layout_toEndOf="@id/teamID"
-
-
-    button to change to players
-    <Button
-        android:text="Onward to Schedule"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="50dp"
-        android:paddingBottom="50dp"
-        android:id="@+id/ScheduleButton"/>
--->
     <!-- Teams List -->
     <ListView
         android:id="@+id/teamsList"
@@ -50,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:textAllCaps="false"
-            android:text="Get Teams"/>
+            android:text="@string/team_button"/>
 
     </LinearLayout>
 

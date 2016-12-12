@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import kylemeyers22.heroku.utils.Endpoints;
 import kylemeyers22.heroku.utils.HttpUtils;
 
 public class PlayerFragment extends Fragment {
@@ -36,29 +37,14 @@ public class PlayerFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        //super.onCreate(savedInstanceState);
-        //setContentView(R.layout.player_fragment);
         playerListView = (ListView) getView().findViewById(R.id.playersList);
 
-        final Button getPlayerButton = (Button) getView().findViewById(R.id.getPlayerButton);
-
-        getPlayerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                //webserver request url
-                String serverUrl = "https://baseballsim.herokuapp.com/api/players";
-
-                //use AsyncTask execute method to prevent ANR problem
-                new LongOperation().execute(serverUrl);
-            }
-        });
+        new LongOperation().execute(Endpoints.playersAPI);
     }
 
     private class LongOperation extends AsyncTask<String, Void, Void> {
 
         private String Content;
-        private String Error = null;
         private ProgressDialog Dialog = new ProgressDialog(getActivity());
         private ArrayAdapter<String> listAdapter;
 
@@ -87,9 +73,6 @@ public class PlayerFragment extends Fragment {
         protected void onPostExecute(Void unused) {
             //close progress dialog
             Dialog.dismiss();
-            //Receive JSON response
-            System.out.println("#---- IN onPostExecute ----#");
-            System.out.println(Content);
 
             ArrayList<String> playerList = new ArrayList<>();
 

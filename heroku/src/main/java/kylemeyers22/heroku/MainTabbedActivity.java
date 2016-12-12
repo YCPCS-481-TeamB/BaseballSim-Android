@@ -6,9 +6,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 
+import java.util.ArrayList;
+
 import kylemeyers22.heroku.adapters.TabAdapter;
+import kylemeyers22.heroku.apiObjects.Team;
+import kylemeyers22.heroku.utils.Constants;
 
 public class MainTabbedActivity extends AppCompatActivity {
+    public static ArrayList<Team> homeTeamList;
+    public static ArrayList<Team> opposeTeamList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,12 +26,14 @@ public class MainTabbedActivity extends AppCompatActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("Players"));
         tabLayout.addTab(tabLayout.newTab().setText("Teams"));
-        tabLayout.addTab(tabLayout.newTab().setText("Games Played"));
+        tabLayout.addTab(tabLayout.newTab().setText("Games"));
+        tabLayout.addTab(tabLayout.newTab().setText("Approvals"));
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.view_pager);
         final TabAdapter adapter = new TabAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
 
         viewPager.setAdapter(adapter);
+        viewPager.setOffscreenPageLimit(Constants.offScreenLimit);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override

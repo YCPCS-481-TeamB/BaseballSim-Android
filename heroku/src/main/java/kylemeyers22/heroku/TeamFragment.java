@@ -22,10 +22,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import kylemeyers22.heroku.apiObjects.Team;
+import kylemeyers22.heroku.utils.Endpoints;
 import kylemeyers22.heroku.utils.HttpUtils;
 
 public class TeamFragment extends Fragment {
     private ListView teamListView;
+
+    private String apiToken;
+    private int userID;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup viewGroup, Bundle savedInstanceState) {
@@ -39,30 +44,32 @@ public class TeamFragment extends Fragment {
 
         final Button getTeamButton = (Button) getView().findViewById(R.id.getTeamButton);
 
+        // Obtain API Authentication Token from LoginActivity's shared preferences
+        SharedPreferences sPref = getActivity().getSharedPreferences("LoginActivity", Context.MODE_PRIVATE);
+        apiToken = sPref.getString("apiToken", null);
+        userID = sPref.getInt("currentUser", -1);
+
+        // Populate homeTeamList immediately on Activity creation
+        new TeamFragment.LongOperation().execute(
+                Endpoints.userTeamsAPI(userID),
+                Endpoints.teamsAPI
+        );
+
         getTeamButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                //webserver request url
-                String serverUrl = "https://baseballsim.herokuapp.com/api/teams";
-
-                //use AsyncTask execute method to prevent ANR problem
-                new TeamFragment.LongOperation().execute(serverUrl);
+                // Refresh list of teams
+                new TeamFragment.LongOperation().execute(Endpoints.userTeamsAPI(userID));
             }
         });
     }
 
     public class LongOperation extends AsyncTask<String, Void, Void> {
 
-        private String Content;
-        private String Error = null;
+        private String userTeams;
+        private String allTeams;
         private ProgressDialog Dialog = new ProgressDialog(getActivity());
         private ArrayAdapter<String> listAdapter;
-
-
-        // Obtain API Authentication Token from LoginActivity's shared preferences
-        SharedPreferences sPref = getActivity().getSharedPreferences("LoginActivity", Context.MODE_PRIVATE);
-        final String apiToken = sPref.getString("apiToken", null);
 
         protected void onPreExecute() {
             //start progress dialog message
@@ -75,7 +82,8 @@ public class TeamFragment extends Fragment {
                 Map<String, String> props = new HashMap<>();
                 props.put("x-access-token", apiToken);
 
-                Content = HttpUtils.doGet(urls[0], props);
+                userTeams = HttpUtils.doGet(urls[0], props);
+                allTeams = HttpUtils.doGet(urls[1], props);
             } catch (IOException iexc) {
                 iexc.printStackTrace();
             }
@@ -86,25 +94,45 @@ public class TeamFragment extends Fragment {
             //close progress dialog
             Dialog.dismiss();
 
-            //Receive JSON response
-            System.out.println("#---- IN onPostExecute ----#");
-            System.out.println(Content);
-
-            ArrayList<String> teamList = new ArrayList<>();
+            ArrayList<String> homeTeams = new ArrayList<>();
+            ArrayList<Team> homeObjs = new ArrayList<>();
+            ArrayList<Team> allObjs = new ArrayList<>();
+            ArrayList<Team> opposeObjs = new ArrayList<>();
 
             try {
-                JSONObject jObj = new JSONObject(Content);
+                // Parse current user's teams
+                JSONObject jObj = new JSONObject(userTeams);
                 JSONArray teamsArray = jObj.getJSONArray("teams");
                 for (int i = 0; i < teamsArray.length(); ++i) {
                     JSONObject item = teamsArray.getJSONObject(i);
-                    teamList.add(item.getString("name"));
+                    // Save team name strings for displaying in layout
+                    homeTeams.add(item.getString("name"));
+                    homeObjs.add(new Team(item.getInt("id"), item.getString("name")));
+                }
+                // Parse all teams
+                jObj = new JSONObject(allTeams);
+                teamsArray = jObj.getJSONArray("teams");
+                for (int i = 0; i < teamsArray.length(); ++i) {
+                    JSONObject item = teamsArray.getJSONObject(i);
+                    allObjs.add(new Team(item.getInt("id"), item.getString("name")));
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
 
-            System.out.println(teamList.size());
-            listAdapter = new ArrayAdapter<>(getActivity(), R.layout.listrow, teamList);
+            // Filter user teams from all teams
+            for (Team current : allObjs) {
+                if (!homeObjs.contains(current)) {
+                    opposeObjs.add(current);
+                }
+            }
+
+            // Set list of teams in MainTabbedActivity for use in GameFragment
+            MainTabbedActivity.homeTeamList = homeObjs;
+            MainTabbedActivity.opposeTeamList = opposeObjs;
+
+            //System.out.println(homeTeamList.size());
+            listAdapter = new ArrayAdapter<>(getActivity(), R.layout.listrow, homeTeams);
             teamListView.setAdapter(listAdapter);
         }
     }

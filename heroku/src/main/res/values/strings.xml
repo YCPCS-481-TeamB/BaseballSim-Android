@@ -1,9 +1,28 @@
 <resources>
-    <string name="app_name">Heroku</string>
+    <string name="app_name">Baseball Simulator</string>
     <string name="appwidget_text">EXAMPLE</string>
     <string name="add_widget">Add widget</string>
     <string name="getPlayersButton">Get Players</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="email">Email</string>
     <string name="login">Login</string>
+    <string name="create_login">Create and Login</string>
+    <string name="new_user">Create an account</string>
+    <string name="welcome">Welcome to the BaseballSimulator</string>
+    <string name="required">Required</string>
+    <string name="optional">Optional</string>
+    <string name="account_info">Enter info for account</string>
+    <string name="game_list_header">Available Games</string>
+    <string name="game_button">Start New Game</string>
+    <string name="team_button">Refresh Teams</string>
+    <string name="team_one">Team One (Your Team)</string>
+    <string name="team_two">Team Two (Opposing Team)</string>
+    <string name="start">Start Game!</string>
+    <string name="game_header">Game %1$d</string>
+    <string name="approvals">Approvals</string>
+    <string name="approval_header">Approval number %1$d</string>
+    <string name="refresh">Refresh</string>
 </resources>
